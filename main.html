@@ -1,962 +1,574 @@
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>7 meses que eu conheço minha princesa</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
-  <style>
-    body {
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(135deg, #ffe4f0 0%, #f9e8f9 100%);
-      color: #5b3b7a;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      padding-bottom: 5rem;
-      overflow-x: hidden;
-    }
-    h1, h2, h3 {
-      font-family: 'Great Vibes', cursive;
-      color: #a56eea;
-      text-shadow: 0 2px 6px rgba(165,110,234,0.4);
-    }
-    /* Scrollbar for timeline container */
-    .timeline-scroll::-webkit-scrollbar {
-      height: 8px;
-    }
-    .timeline-scroll::-webkit-scrollbar-track {
-      background: #fce7f3;
-      border-radius: 10px;
-    }
-    .timeline-scroll::-webkit-scrollbar-thumb {
-      background: #b18ffb;
-      border-radius: 10px;
-    }
-    /* Card envelope style */
-    .envelope {
-      background: linear-gradient(135deg, #fce7f3 0%, #f9d5e5 100%);
-      border-radius: 1.25rem;
-      box-shadow: 0 10px 20px rgba(165, 110, 234, 0.25);
-      cursor: pointer;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      user-select: none;
-      will-change: transform, box-shadow;
-    }
-    .envelope:hover, .envelope:focus-visible {
-      transform: translateY(-10px) scale(1.06);
-      box-shadow: 0 25px 45px rgba(165, 110, 234, 0.55);
-      outline: none;
-    }
-    .envelope::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 150%;
-      height: 150%;
-      background: #d8b4fe;
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      transform: translateX(-50%);
-      opacity: 0.18;
-      pointer-events: none;
-    }
-    /* Modal styles */
-    .modal-bg {
-      background: rgba(165, 110, 234, 0.95);
-      backdrop-filter: blur(12px);
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 70;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.45s ease;
-      padding: 1rem;
-    }
-    .modal-bg.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .modal-content {
-      background: #fff0f6;
-      border-radius: 2rem;
-      max-width: 95vw;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 3rem 3.5rem;
-      box-shadow: 0 20px 50px rgba(165, 110, 234, 0.5);
-      position: relative;
-      font-size: 1.25rem;
-      line-height: 1.8;
-      color: #6b21a8;
-      font-weight: 600;
-      white-space: pre-wrap;
-      user-select: text;
-      will-change: transform, opacity;
-      animation: modalFadeIn 0.5s ease forwards;
-    }
-    @keyframes modalFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-    .modal-close-btn {
-      position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      background: #b18ffb;
-      color: white;
-      font-weight: 700;
-      border-radius: 9999px;
-      padding: 0.5rem 1.3rem;
-      cursor: pointer;
-      user-select: none;
-      box-shadow: 0 6px 18px rgba(165, 110, 234, 0.6);
-      transition: background-color 0.35s ease, transform 0.3s ease;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.1rem;
-      will-change: background-color, transform;
-    }
-    .modal-close-btn:hover, .modal-close-btn:focus-visible {
-      background: #7c3aed;
-      outline: none;
-      transform: scale(1.1);
-    }
-    /* Scrollbar for modal */
-    .modal-content::-webkit-scrollbar {
-      width: 12px;
-    }
-    .modal-content::-webkit-scrollbar-track {
-      background: #fce7f3;
-      border-radius: 14px;
-    }
-    .modal-content::-webkit-scrollbar-thumb {
-      background: #b18ffb;
-      border-radius: 14px;
-    }
-    /* Timeline event circle */
-    .timeline-circle {
-      background: #b18ffb;
-      border: 4px solid #7c3aed;
-      width: 1.9rem;
-      height: 1.9rem;
-      border-radius: 9999px;
-      flex-shrink: 0;
-      box-shadow: 0 0 14px #7c3aeddd;
-      transition: background-color 0.3s ease;
-      will-change: box-shadow;
-    }
-    /* Timeline vertical line */
-    .timeline-line {
-      width: 5px;
-      background: #d8b4fe;
-      margin-left: 0.9rem;
-      margin-right: 1.8rem;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-    /* Scroll smooth for timeline container */
-    .timeline-scroll {
-      scroll-behavior: smooth;
-    }
-    /* Button special */
-    .btn-special {
-      background: linear-gradient(90deg, #b18ffb, #7c3aed);
-      color: white;
-      font-weight: 900;
-      padding: 1.4rem 3.5rem;
-      border-radius: 9999px;
-      box-shadow: 0 12px 32px rgba(124, 58, 237, 0.85);
-      transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.3s ease;
-      user-select: none;
-      font-size: 1.35rem;
-      letter-spacing: 0.07em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      box-sizing: border-box;
-      will-change: background, box-shadow, transform;
-      cursor: pointer;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    }
-    .btn-special:hover:not(:disabled), .btn-special:focus-visible:not(:disabled) {
-      background: linear-gradient(90deg, #7c3aed, #b18ffb);
-      box-shadow: 0 18px 48px rgba(124, 58, 237, 1);
-      outline: none;
-      transform: scale(1.07);
-    }
-    .btn-special:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-    /* Scroll container for timeline horizontal on mobile */
-    @media (max-width: 640px) {
-      .timeline-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .timeline-scroll {
-        flex-wrap: nowrap;
-      }
-    }
-    /* Lista para o Futuro - números ao invés de checkbox */
-    .future-list {
-      counter-reset: item-counter;
-    }
-    .future-list li {
-      position: relative;
-      padding-left: 3.8rem;
-      line-height: 1.6;
-      font-weight: 700;
-      color: #7c3aed;
-      user-select: none;
-      font-size: 1.2rem;
-      transition: color 0.35s ease;
-      cursor: default;
-      letter-spacing: 0.02em;
-      text-shadow: 0 1px 2px rgba(124, 58, 237, 0.15);
-    }
-    .future-list li:hover, .future-list li:focus-visible {
-      color: #c4a7ff;
-      outline: none;
-    }
-    .future-list li::before {
-      counter-increment: item-counter;
-      content: counter(item-counter);
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      background: linear-gradient(135deg, #a78bfa, #7c3aed);
-      color: white;
-      font-weight: 900;
-      width: 2.8rem;
-      height: 2.8rem;
-      border-radius: 9999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 5px 16px rgba(124, 58, 237, 0.6);
-      font-family: 'Quicksand', sans-serif;
-      font-size: 1.3rem;
-      user-select: none;
-      transition: background 0.4s ease;
-      will-change: background;
-    }
-    /* Texto principal abaixo da lista */
-    .future-main-text {
-      margin-top: 1.8rem;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #7c3aed;
-      text-align: center;
-      font-family: 'Great Vibes', cursive;
-      text-shadow: 0 2px 5px rgba(124, 58, 237, 0.5);
-      user-select: none;
-      letter-spacing: 0.07em;
-      animation: pulseText 3s ease-in-out infinite;
-    }
-    @keyframes pulseText {
-      0%, 100% { text-shadow: 0 2px 5px rgba(124, 58, 237, 0.5); color: #7c3aed; }
-      50% { text-shadow: 0 4px 12px rgba(165, 110, 234, 0.9); color: #a78bfa; }
-    }
-    /* Link button for "A flor do nosso amor" */
-    .link-flor {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      background: linear-gradient(90deg, #f9a8d4, #a78bfa);
-      color: white;
-      font-weight: 700;
-      padding: 1.1rem 3rem;
-      border-radius: 9999px;
-      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.8);
-      font-size: 1.3rem;
-      text-decoration: none;
-      transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.3s ease;
-      user-select: none;
-      margin-bottom: 3.5rem;
-      font-family: 'Quicksand', sans-serif;
-      letter-spacing: 0.06em;
-      will-change: background, box-shadow, transform;
-      cursor: pointer;
-    }
-    .link-flor:hover, .link-flor:focus-visible {
-      background: linear-gradient(90deg, #a78bfa, #f9a8d4);
-      box-shadow: 0 15px 45px rgba(167, 139, 250, 1);
-      outline: none;
-      text-decoration: none;
-      transform: scale(1.05);
-    }
-    /* Botão Textinho de 7 meses */
-    #btnTextinho {
-      background: linear-gradient(90deg, #fbb1b1, #a78bfa);
-      color: white;
-      font-weight: 900;
-      padding: 1.5rem 4rem;
-      border-radius: 9999px;
-      box-shadow: 0 14px 40px rgba(255, 105, 180, 0.85);
-      transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.35s ease;
-      user-select: none;
-      font-size: 1.5rem;
-      letter-spacing: 0.08em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      box-sizing: border-box;
-      will-change: background, box-shadow, transform;
-      cursor: pointer;
-      margin-bottom: 4rem;
-      font-family: 'Great Vibes', cursive;
-      text-shadow: 0 2px 6px rgba(255, 105, 180, 0.7);
-    }
-    #btnTextinho:hover, #btnTextinho:focus-visible {
-      background: linear-gradient(90deg, #a78bfa, #fbb1b1);
-      box-shadow: 0 20px 55px rgba(255, 105, 180, 1);
-      outline: none;
-      transform: scale(1.1);
-    }
-    /* Botão playlist */
-    #btnPlaylist {
-      background: linear-gradient(90deg, #7c3aed, #fbb1b1);
-      color: white;
-      font-weight: 800;
-      padding: 1.2rem 3.5rem;
-      border-radius: 9999px;
-      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.8);
-      transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.3s ease;
-      user-select: none;
-      font-size: 1.3rem;
-      letter-spacing: 0.06em;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      box-sizing: border-box;
-      will-change: background, box-shadow, transform;
-      cursor: pointer;
-      font-family: 'Quicksand', sans-serif;
-      text-decoration: none;
-      margin-top: 1.5rem;
-    }
-    #btnPlaylist:hover, #btnPlaylist:focus-visible {
-      background: linear-gradient(90deg, #fbb1b1, #7c3aed);
-      box-shadow: 0 15px 45px rgba(255, 105, 180, 1);
-      outline: none;
-      transform: scale(1.05);
-      text-decoration: none;
-    }
-    /* Responsive tweaks */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 3.8rem;
-      }
-      h2 {
-        font-size: 2.5rem;
-      }
-      .btn-special {
-        font-size: 1.2rem;
-        padding: 1.2rem 2.5rem;
-      }
-      .future-list li {
-        font-size: 1.1rem;
-        padding-left: 3.3rem;
-      }
-      .future-list li::before {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.2rem;
-      }
-      #btnTextinho {
-        font-size: 1.3rem;
-        padding: 1.3rem 3rem;
-      }
-      #btnPlaylist {
-        font-size: 1.15rem;
-        padding: 1rem 3rem;
-      }
-    }
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 3rem;
-      }
-      h2 {
-        font-size: 2rem;
-      }
-      .btn-special {
-        font-size: 1.05rem;
-        padding: 1rem 2rem;
-      }
-      .future-list li {
-        font-size: 1rem;
-        padding-left: 3rem;
-      }
-      .future-list li::before {
-        width: 2.2rem;
-        height: 2.2rem;
-        font-size: 1.1rem;
-      }
-      #btnTextinho {
-        font-size: 1.1rem;
-        padding: 1rem 2.5rem;
-      }
-      #btnPlaylist {
-        font-size: 1rem;
-        padding: 0.9rem 2.5rem;
-      }
-    }
-    /* Floating animation for image */
-    @keyframes floatUpDown {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    .animate-float {
-      animation: floatUpDown 6s ease-in-out infinite;
-      will-change: transform;
-    }
-    /* Cute hearts floating background */
-    .hearts-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 0;
-    }
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #fbb1b1;
-      transform: rotate(-45deg);
-      animation: floatHearts linear infinite;
-      opacity: 0.8;
-      border-radius: 3px 3px 0 0;
-      box-shadow:
-        10px 0 0 #fbb1b1,
-        0 10px 0 #fbb1b1;
-    }
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #fbb1b1;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-    .heart::after {
-      left: 10px;
-      top: 0;
-    }
-    @keyframes floatHearts {
-      0% {
-        transform: translateY(100vh) rotate(-45deg);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-150vh) rotate(-45deg);
-        opacity: 0;
-      }
-    }
-    /* EU TE AMO counter style */
-    #contadorAmor {
-      font-family: 'Great Vibes', cursive;
-      font-size: 2.8rem;
-      color: #d946ef;
-      text-shadow: 0 2px 8px rgba(219, 39, 119, 0.8);
-      font-weight: 900;
-      margin-bottom: 2rem;
-      user-select: none;
-      letter-spacing: 0.1em;
-      text-align: center;
-      animation: pulseLove 3s ease-in-out infinite;
-    }
-    @keyframes pulseLove {
-      0%, 100% { color: #d946ef; text-shadow: 0 2px 8px rgba(219, 39, 119, 0.8); }
-      50% { color: #f9a8d4; text-shadow: 0 4px 14px rgba(219, 39, 119, 1); }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Para Minha Princesa ❤ - 7 meses que eu conheço essa pessoa maravilhosa</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+  href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #fff0f6;
+    color: #4b2e39;
+  }
+  h1, h2, h3 {
+    font-family: 'Great Vibes', cursive;
+  }
+  /* Scrollbar for timeline container */
+  .timeline-scroll::-webkit-scrollbar {
+    height: 8px;
+  }
+  .timeline-scroll::-webkit-scrollbar-thumb {
+    background-color: #d97706;
+    border-radius: 10px;
+  }
+  .timeline-scroll::-webkit-scrollbar-track {
+    background: #fce7f3;
+  }
+</style>
 </head>
-<body class="relative flex flex-col items-center p-6 max-w-5xl mx-auto">
-  <!-- Floating hearts background -->
-  <div class="hearts-bg" aria-hidden="true"></div>
+<body class="min-h-screen flex flex-col items-center px-4 py-8 md:py-12 max-w-5xl mx-auto select-none">
 
-  <header class="mb-6 text-center select-none relative z-10">
-    <h1 class="text-6xl md:text-7xl font-extrabold mb-3 leading-tight">7 meses que eu conheço minha princesa</h1>
-    <p class="text-2xl md:text-3xl text-purple-700 font-semibold tracking-wide drop-shadow-md">Cada momento, eternizado no tempo com muito amor 💜</p>
-  </header>
+<header class="mb-12 text-center">
+  <h1 class="text-5xl md:text-6xl text-pink-600 drop-shadow-md">Para Minha Princesa ❤</h1>
+  <p class="mt-2 text-lg md:text-xl text-pink-400 font-semibold tracking-wide">7 meses que eu conheço essa pessoa maravilhosa</p>
+</header>
 
-  <div id="contadorAmor" aria-live="polite" aria-atomic="true" aria-label="Contador infinito de eu te amo">EU TE AMO: 1</div>
-
-  <!-- Timeline Section -->
-  <section class="timeline-container w-full mb-14 relative z-10">
-    <h2 class="text-4xl font-semibold mb-10 text-center text-purple-600 select-none drop-shadow-sm">Linha do Tempo</h2>
-    <div class="timeline-scroll flex flex-col md:flex-row md:justify-between md:space-x-8 space-y-12 md:space-y-0 px-4 md:px-0">
-      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
-        <div class="timeline-circle" aria-hidden="true"></div>
-        <div class="timeline-line hidden md:block h-28"></div>
-        <div>
-          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">Eu te conheci</h3>
-          <time datetime="2024-10-26" class="block mb-2 text-purple-500 font-medium select-text">26/10/2024</time>
-          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed1" aria-live="polite" aria-atomic="true">Calculando...</p>
-        </div>
-      </article>
-
-      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
-        <div class="timeline-circle" aria-hidden="true"></div>
-        <div class="timeline-line hidden md:block h-28"></div>
-        <div>
-          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">Eu te pedi em namoro</h3>
-          <time datetime="2024-11-13" class="block mb-2 text-purple-500 font-medium select-text">13/11/2024</time>
-          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed2" aria-live="polite" aria-atomic="true">Calculando...</p>
-        </div>
-      </article>
-
-      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
-        <div class="timeline-circle" aria-hidden="true"></div>
-        <div class="timeline-line hidden md:block h-28"></div>
-        <div>
-          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">O primeiro "eu te amo"</h3>
-          <time datetime="2024-11-15" class="block mb-2 text-purple-500 font-medium select-text">15/11/2024</time>
-          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed3" aria-live="polite" aria-atomic="true">Calculando...</p>
-        </div>
-      </article>
-
-      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
-        <div class="timeline-circle" aria-hidden="true"></div>
-        <div class="timeline-line hidden md:block h-28"></div>
-        <div>
-          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">O primeiro texto</h3>
-          <time datetime="2024-11-24" class="block mb-2 text-purple-500 font-medium select-text">24/11/2024</time>
-          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed4" aria-live="polite" aria-atomic="true">Calculando...</p>
-        </div>
-      </article>
-
-      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
-        <div class="timeline-circle" aria-hidden="true"></div>
-        <div class="timeline-line hidden md:block h-28"></div>
-        <div>
-          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">Eu te amo desde</h3>
-          <time datetime="2024-10-26" class="block mb-2 text-purple-500 font-medium select-text">26/10/2024</time>
-          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed5" aria-live="polite" aria-atomic="true">Calculando...</p>
-        </div>
-      </article>
+<!-- 1. Linha do Tempo -->
+<section class="w-full max-w-4xl bg-pink-50 rounded-3xl shadow-lg p-6 md:p-10 mb-12">
+  <h2 class="text-3xl md:text-4xl text-pink-600 mb-6 text-center font-semibold">Nossa Linha do Tempo</h2>
+  <div class="flex flex-col space-y-6 timeline-scroll overflow-x-auto md:overflow-visible md:space-y-8">
+    <!-- Each event with dynamic time -->
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
+      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">Eu te conheci em 26/10/2024</div>
+      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time1">Calculando...</div>
     </div>
-  </section>
-
-  <!-- Image Section -->
-  <section class="w-full max-w-4xl mb-16 px-4 relative z-10">
-    <img
-      src="https://media.discordapp.net/attachments/1373265897417998346/1373270339831992320/eu_e_manu.png?ex=6829cd2b&is=68287bab&hm=babff24566ad359384ad0ed454e09e78759e91851179bc6f2f4d9c222455a942&=&format=webp&quality=lossless&width=892&height=595"
-      alt="Imagem artística e romântica do futuro juntos, mostrando um casal feliz em um cenário sonhador e colorido, com tons suaves de rosa e roxo, simbolizando amor e união"
-      class="w-full h-auto rounded-3xl shadow-2xl mx-auto animate-float"
-      loading="lazy"
-      decoding="async"
-      fetchpriority="high"
-      style="will-change: transform;"
-    />
-  </section>
-
-  <!-- Button Special -->
-  <section class="mb-20 text-center px-4 relative z-10">
-    <button
-      id="btnAmor"
-      class="btn-special px-12 py-4 select-none"
-      aria-label="Enviar mensagem de amor para Discord"
-      type="button"
-    >
-      <i class="fas fa-heart"></i> Enviar Mensagem de Amor
-    </button>
-    <p id="msgStatus" class="mt-4 text-purple-700 font-semibold min-h-[1.5rem] select-none" aria-live="polite"></p>
-  </section>
-
-  <!-- Link to "A flor do nosso amor" -->
-  <section class="w-full text-center mb-20 px-4 relative z-10">
-    <a href="https://ilavayou.com.br/visualizar_rosa/41c6717b-6394-4c61-9e13-4d61dc8c9c03" target="_blank" rel="noopener noreferrer" class="link-flor" aria-label="Abrir site A flor do nosso amor">
-      <i class="fas fa-seedling"></i> A flor do nosso amor
-    </a>
-  </section>
-
-  <!-- Cartinhas para Você -->
-  <section class="w-full max-w-5xl mb-20 px-4 relative z-10">
-    <h2 class="text-4xl font-semibold mb-12 text-center text-purple-600 select-none drop-shadow-sm">Cartinhas para Você</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Quando eu ouvi sua voz pela primeira vez" data-text="Eu n sei explicar oq aconteceu cmg naqla hr  
-A sua voz entrou pelos meus ouvidos e foi direto no meu peito  
-era linda, era gostosa, era perfeita  
-Sb aql sensação de qnd vc ouve uma msc nova e sente que ela foi feita pra vc? Foi tipo isso  
-A sua voz virou a minha msc favorita, aquela que eu nunca canso de ouvir  
-Ela me acalma qnd tô ansioso  
-Me anima qnd tô triste  
-Eu amo muito sua voz Manuzinha  
-Eu podia passar o dia td só ouvindo você falar, rir, brincar… até mesmo brigar, se for com aquela sua voz fofa que tenta parecer brava KKKKKKKKKKKK  
-Desde aquele dia eu percebi:  
-n tem som mais bonito no mundo doq o som da sua voz falando meu nome">
-        <h3 class="text-purple-700 font-semibold text-xl mb-3">Quando eu ouvi sua voz pela primeira vez</h3>
-        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
-      </article>
-
-      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Eu te amo muito" data-text="ei, só queria dizer q eu te amooooo muitoooo manuzinhaaa, tipo muiitoooo msm  
-nem sei explicar o pq, só sei q vc é tudo pra mim  
-vc me faz sorrir do nada, me entende qnd eu nem falo nada, e me faz sentir em outro mundo, mesmo q o mundo esteja virado de cbç p baixo  
-é isso, só queria q vc soubesse q eu tô aqui, q eu sou seu, e q eu te amo mais do q oq dá pra escrever suaaaaaaa lindaaaaaaaaah💖">
-        <h3 class="text-purple-700 font-semibold text-xl mb-3">Eu te amo muito</h3>
-        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
-      </article>
-
-      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Coisas que amo em você" data-text="coisas q eu amo em vc? vish, por onde começo kkkkkk  
-amo seu jeitinho, sua voz, sua risada muito soft,  
-o jeito q vc fala &quot;erriesi&quot;, dsclp, parece ser estranho  
-amo q vc me entende, me escuta, me acalma, me faz rir  
-e principalmente... amo o fato de vc ser vc 💗">
-        <h3 class="text-purple-700 font-semibold text-xl mb-3">Coisas que amo em você</h3>
-        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
-      </article>
-
-      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Se eu pudesse te abraçar agora…" data-text="se eu pudesse te abraçar agora...  
-eu juro q n soltava nunca mais,  
-ficava ali, quetinho, sentindo seu cheiro, seu calor, seu coração batendo no meu,  
-falava nada, só ficava ali com vc, pq às vezes um abraço seu vale mais q mil palavras,  
-e se eu pudesse, eu já tava aí 💞">
-        <h3 class="text-purple-700 font-semibold text-xl mb-3">Se eu pudesse te abraçar agora…</h3>
-        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
-      </article>
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
+      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">Eu te pedi em namoro em 13/11/2024</div>
+      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time2">Calculando...</div>
     </div>
-  </section>
-
-  <!-- Lista para o Futuro -->
-  <section class="w-full max-w-3xl mb-12 px-4 relative z-10">
-    <h2 class="text-4xl font-semibold mb-8 text-center text-purple-600 select-none drop-shadow-sm">Lista para o Futuro ✨</h2>
-    <ul class="future-list list-none space-y-5">
-      <li>Casar</li>
-      <li>Ter filhos</li>
-      <li>Nomes dos filhos: Mia Manuelly e Brian O’Conner</li>
-      <li>Carro dos sonhos</li>
-      <li>Ter uma casinha na árvore pros nossos filhos</li>
-      <li>Ter uma piscina bem grandona</li>
-      <li>Viajar pelo mundo</li>
-      <li>Ver as estrelas nas Maldivas</li>
-      <li>Visitar Edimburgo no outono</li>
-      <li>Ver a aurora boreal</li>
-      <li>Nadar com porquinhos nas Bahamas</li>
-      <li>Conhecer o Castelo de Bran na Romênia</li>
-      <li>Ver a cor dos lagos em Banff, Canadá</li>
-      <li>Visitar Aspen no inverno</li>
-      <li>Conhecer a praia rosa na Indonésia</li>
-      <li>Visitar os EUA no Halloween</li>
-      <li>Se perder nas ruas de Tóquio</li>
-      <li>Ir na praia à noite</li>
-      <li>Andar de balão de ar quente</li>
-      <li>Ver o festival de lanternas na Tailândia</li>
-      <li>Ir no maior deserto de sal do mundo, na Bolívia</li>
-      <li>Viajar em família pra Disney</li>
-      <li>Conhecer Nova York no Natal</li>
-      <li>Ir para Los Angeles</li>
-    </ul>
-    <p class="future-main-text" aria-label="Principal: se conhecer">PRINCIPAL: SE CONHECER</p>
-  </section>
-
-  <!-- Botão Textinho de 7 meses -->
-  <section class="w-full text-center px-4 relative z-10">
-    <button id="btnTextinho" aria-label="Abrir textinho de 7 meses com minha princesa" type="button">
-      <i class="fas fa-feather-alt"></i> Textinho de 7 meses
-    </button>
-  </section>
-
-  <!-- Modal Textinho -->
-  <div id="modalTextinho" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modalTextinhoTitle" aria-describedby="modalTextinhoDesc" tabindex="-1" style="opacity:0; pointer-events:none;">
-    <div class="modal-content" tabindex="0">
-      <h3 id="modalTextinhoTitle" class="text-3xl font-bold mb-6 text-center">7 meses com vc minha fadinha azul 💙</h3>
-      <p id="modalTextinhoDesc" class="whitespace-pre-wrap mb-8" style="white-space: pre-line;">
-caraca... 7 meses... tipo, PARA TUDO
-como assim já se passaram 7 meses desde q eu te conheci?
-7 meses ouvindo sua voz, lendo seus “oii amorrr” com coraçãozinho, e sentindo meu peito bater mais forte cada vez q vc aparece...
-
-pq, olha, eu juro q quando vc chegou na minha vida eu nem sabia o q tava por vir
-eu só pensei “ok, ela é diferente... tem alguma coisa nela”
-e tinha mesmo... tinha tudo, tinha luz, tinha carinho, tinha risada linda, tinha amor.
-tinha vc suaaa lindaaa
-
-e desde então, cada dia com vc virou tipo... um sonho
-vc virou meu primeiro pensamento qnd eu acordo e o último antes de dormir
-vc virou minha calma no meio da bagunça
-virou aquele “vc tá bem?” q salva o dia
-virou meu abracinho virtual nas noites ruins
-virou minha certeza no meio das dúvidas
-
-sério, vc é tudo, tudo o q eu pedi sem sbr, tudo q eu queria sem ter coragem de admitir
-vc é carinhosa, engraçada, doce, brava de vez em qnd kkkkk mas até isso eu amo
-pq é isso, né? eu amo vc, amo mesmo, com tudo,  sem pausa, sem vírgula, sem talvez
-
-e blz, sei q nem sempre as coisas são fáceis
-a distância, os problemas, os dias em q tudo parece pesado demais
-mas mesmo assim, eu olho pra vc e penso: “man, se for pra ser difícil, q seja com ela, pq por ela vale a pena”
-
-vc me faz querer ser melhor
-me faz querer lutar, conquistar, sonhar
-vc me faz sentir amado, importante, único
-vc me faz sentir que eu tenho alguém no mundo q me vê de verdade
-é isso, minha fadinha azul vale tudo
-
-7 meses… e eu ainda arrepio só de imaginar seu rosto sorrindo por minha causa
-ainda paro pra reler as mensagens antigas e sorrir cm idiota
-ainda espero ansioso pelo “cheguei da iskola ppdoo” q muda o tom do meu dia
-
-e eu só queria q vc soubesse: eu tô aqui, sempre, por vc, com vc, pra vc,
-pq se tem uma coisa q eu aprendi nesse tempo é q amar alguém como eu amo vc… é raro demais pra deixar passar
-
-então minha princesa, minha fadinha azul, minha parceira de planos malucos e sonhos grandes:
-obgd por tudo, por ser quem vc é, por n desistir da gente, por me amar mesmo com todos os meus defeitos
-
-e se depender de mim, esses 7 meses são só o comecinho de uma história q vai durar pra sempre
-pq é com vc q eu quero ver o mundo, construir tudo, viver tudo
-é com vc q eu quero o sempre
-
-feliz 7 meses minha linda 💙
-eu te amo num nível q nem dá pra explicar, mais juro q tento todo dia, com cada mensagem, cada palavra, cada “eu te amo”
-vc é o meu lugar favorito
-e eu sou seu, totalmente seu, pra tudo
-
-eu te amooo muitoo minha fadinha azul, minha gostosaaaaa❤❤
-      </p>
-      <button id="modalTextinhoClose" class="modal-close-btn" aria-label="Fechar textinho de 7 meses">Fechar 💖</button>
-      <a href="https://open.spotify.com/playlist/1Mv90HswkRAs8JZbjt4gF7?si=BEkP8RLbRg2yHvzd5fQlhg" target="_blank" rel="noopener noreferrer" id="btnPlaylist" class="inline-flex mx-auto" aria-label="Abrir playlist para minha princesa">
-        <i class="fab fa-spotify"></i> Playlist para minha princesa
-      </a>
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
+      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">O primeiro “eu te amo” foi em 15/11/2024</div>
+      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time3">Calculando...</div>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
+      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">O primeiro texto foi em 24/11/2024</div>
+      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time4">Calculando...</div>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
+      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">Eu te amo desde 26/10/2024</div>
+      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time5">Calculando...</div>
     </div>
   </div>
+</section>
 
-  <script>
-    // Timeline dates
-    const events = [
-      { id: 'elapsed1', date: '2024-10-26T00:00:00' },
-      { id: 'elapsed2', date: '2024-11-13T00:00:00' },
-      { id: 'elapsed3', date: '2024-11-15T00:00:00' },
-      { id: 'elapsed4', date: '2024-11-24T00:00:00' },
-      { id: 'elapsed5', date: '2024-10-26T00:00:00' }
-    ];
+<!-- 2. A gente no futuro juntos -->
+<section class="w-full max-w-4xl mb-12 rounded-3xl overflow-hidden shadow-lg border-4 border-pink-300">
+  <h2 class="text-3xl md:text-4xl text-pink-600 font-semibold text-center py-6 bg-pink-100">A gente no futuro juntos</h2>
+  <img
+    src="https://media.discordapp.net/attachments/1373265897417998346/1373270339831992320/eu_e_manu.png?ex=6829cd2b&is=68287bab&hm=babff24566ad359384ad0ed454e09e78759e91851179bc6f2f4d9c222455a942&=&format=webp&quality=lossless&width=892&height=595"
+    alt="Imagem romântica de um casal feliz, representando o futuro juntos, com cores suaves e um cenário aconchegante"
+    class="w-full object-cover max-h-[400px] md:max-h-[500px]"
+    loading="lazy"
+  />
+</section>
 
-    function updateElapsed() {
-      const now = new Date();
+<!-- 3. Botão para enviar mensagem no Discord via webhook -->
+<section class="w-full max-w-4xl mb-12 flex justify-center">
+  <button
+    id="discordBtn"
+    class="bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
+    aria-label="Enviar mensagem no discord"
+  >
+    <i class="fab fa-discord fa-lg"></i>
+    <span>Enviar mensagem no discord 💖</span>
+  </button>
+</section>
 
-      events.forEach(({ id, date }) => {
-        const start = new Date(date);
-        let diff = Math.floor((now - start) / 1000); // seconds difference
+<!-- 4. Seção “Cartinhas para Você” -->
+<section class="w-full max-w-4xl mb-12 bg-pink-50 rounded-3xl shadow-lg p-6 md:p-10">
+  <h2 class="text-3xl md:text-4xl text-pink-600 mb-8 text-center font-semibold">Cartinhas para Você</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <!-- Cartinha 1 -->
+    <button
+      data-popup="popup1"
+      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
+      aria-haspopup="dialog"
+      aria-controls="popup1"
+    >
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
+      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Quando eu ouvi sua voz pela primeira vez</div>
+      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
+    </button>
+    <!-- Cartinha 2 -->
+    <button
+      data-popup="popup2"
+      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
+      aria-haspopup="dialog"
+      aria-controls="popup2"
+    >
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
+      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Eu te amo muito</div>
+      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
+    </button>
+    <!-- Cartinha 3 -->
+    <button
+      data-popup="popup3"
+      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
+      aria-haspopup="dialog"
+      aria-controls="popup3"
+    >
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
+      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Lista para o futuro</div>
+      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
+    </button>
+    <!-- Cartinha 4 -->
+    <button
+      data-popup="popup4"
+      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
+      aria-haspopup="dialog"
+      aria-controls="popup4"
+    >
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
+      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Coisas que amo em você</div>
+      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
+    </button>
+    <!-- Cartinha 5 -->
+    <button
+      data-popup="popup5"
+      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
+      aria-haspopup="dialog"
+      aria-controls="popup5"
+    >
+      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
+      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Se eu pudesse te abraçar agora…</div>
+      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
+    </button>
+  </div>
+</section>
 
-        if (diff < 0) {
-          document.getElementById(id).textContent = 'Evento futuro';
-          return;
+<!-- 5. Lista para o Futuro -->
+<section class="w-full max-w-4xl mb-12 bg-pink-50 rounded-3xl shadow-lg p-6 md:p-10">
+  <h2 class="text-3xl md:text-4xl text-pink-600 mb-8 text-center font-semibold">Lista para o Futuro</h2>
+  <div class="bg-pink-100 rounded-2xl border border-pink-300 p-6 md:p-10 text-pink-700 font-medium text-lg leading-relaxed">
+    <h3 class="text-2xl font-semibold mb-6 text-center text-pink-600">PRINCIPAL: SE CONHECER</h3>
+    <ol class="list-decimal list-inside space-y-4 max-w-3xl mx-auto">
+      <li class="flex items-center space-x-3"><i class="fas fa-ring text-pink-500"></i><span>Casar</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-baby text-pink-500"></i><span>Ter filhos</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-child text-pink-500"></i><span>Nomes dos filhos: Mia Manuelly e Brian O’Conner</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-car-side text-pink-500"></i><span>Carro dos sonhos</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Ter uma casinha na árvore para os nossos filhos</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-swimming-pool text-pink-500"></i><span>Ter uma piscina bem grandona</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-plane text-pink-500"></i><span>Viajar pelo mundo</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-star text-pink-500"></i><span>Ver as estrelas nas Maldivas</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-leaf text-pink-500"></i><span>Visitar Edimburgo no outono</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-icicles text-pink-500"></i><span>Ver a aurora boreal</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-water text-pink-500"></i><span>Nadar com porquinhos nas Bahamas</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-chess-rook text-pink-500"></i><span>Conhecer o castelo de Bran na Romênia</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-tint text-pink-500"></i><span>Ver a cor dos lagos em Banff, Canadá</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-snowflake text-pink-500"></i><span>Visitar Aspen no inverno</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-umbrella-beach text-pink-500"></i><span>Conhecer a Praia Rosa na Indonésia</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-ghost text-pink-500"></i><span>Visitar os EUA no Halloween</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-map-marker-alt text-pink-500"></i><span>Se perder nas ruas de Tóquio</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-moon text-pink-500"></i><span>Ir na praia à noite</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-hot-air-balloon text-pink-500"></i><span>Andar de balão de ar quente</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-fire text-pink-500"></i><span>Ver o festival de lanternas na Tailândia</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-mountain text-pink-500"></i><span>Ir no maior deserto de sal do mundo, na Bolívia</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-child-reaching text-pink-500"></i><span>Viajar em família para a Disney</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Conhecer Nova York no Natal</span></li>
+      <li class="flex items-center space-x-3"><i class="fas fa-film text-pink-500"></i><span>Ir para Los Angeles</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. Botão para playlist do Spotify -->
+<section class="w-full max-w-4xl mb-8 flex justify-center">
+  <a
+    href="https://open.spotify.com/playlist/1Mv90HswkRAs8JZbjt4gF7?si=5d803320a49b4b43"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
+    aria-label="Abrir Playlist da Minha Princesa no Spotify"
+  >
+    <i class="fab fa-spotify fa-lg"></i>
+    <span>Playlist da Minha Princesa ❤❤</span>
+  </a>
+</section>
+
+<!-- 7. Botão “Flor do nosso amor” -->
+<section class="w-full max-w-4xl mb-8 flex justify-center">
+  <a
+    href="https://ilavayou.com.br/visualizar_rosa/41c6717b-6394-4c61-9e13-4d61dc8c9c03"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="bg-pink-400 hover:bg-pink-500 active:bg-pink-600 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
+    aria-label="Abrir Flor do nosso amor"
+  >
+    <i class="fas fa-seedling fa-lg"></i>
+    <span>Flor do nosso amor</span>
+  </a>
+</section>
+
+<!-- 8. Botão “textinho de 7 meses” -->
+<section class="w-full max-w-4xl mb-12 flex justify-center">
+  <button
+    id="btn7Meses"
+    class="bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
+    aria-label="Abrir textinho de 7 meses"
+  >
+    <i class="fas fa-heart fa-lg"></i>
+    <span>Textinho de 7 meses 💌</span>
+  </button>
+</section>
+
+<!-- POPUPS -->
+
+<!-- Cartinha 1 Popup -->
+<div
+  id="popup1"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="popup1Title"
+  tabindex="-1"
+  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
+>
+  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
+    <h3 id="popup1Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Quando eu ouvi sua voz pela primeira vez</h3>
+    <p>
+      Lembro como se fosse ontem, aquele momento mágico em que ouvi sua voz pela primeira vez. Foi como se o mundo parasse e só existisse você e eu, conectados por algo que nem o tempo pode explicar. Sua voz é a melodia que embala meu coração todos os dias.
+    </p>
+    <button
+      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
+      data-close="popup1"
+    >
+      Fechar 💖
+    </button>
+  </div>
+</div>
+
+<!-- Cartinha 2 Popup -->
+<div
+  id="popup2"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="popup2Title"
+  tabindex="-1"
+  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
+>
+  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
+    <h3 id="popup2Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Eu te amo muito</h3>
+    <p>
+      Eu te amo mais do que palavras podem expressar. Cada dia ao seu lado é um presente que eu agradeço com todo meu coração. Você é minha inspiração, minha alegria e meu porto seguro. Amo você hoje, amanhã e para sempre.
+    </p>
+    <button
+      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
+      data-close="popup2"
+    >
+      Fechar 💖
+    </button>
+  </div>
+</div>
+
+<!-- Cartinha 3 Popup (Lista para o futuro) -->
+<div
+  id="popup3"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="popup3Title"
+  tabindex="-1"
+  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50 overflow-auto"
+>
+  <div class="bg-pink-50 rounded-3xl max-w-4xl w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed max-h-[90vh] overflow-y-auto">
+    <h3 id="popup3Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Lista para o Futuro</h3>
+    <div class="bg-pink-100 rounded-2xl border border-pink-300 p-6 text-pink-700 font-medium text-lg leading-relaxed">
+      <h4 class="text-2xl font-semibold mb-6 text-center text-pink-600">PRINCIPAL: SE CONHECER</h4>
+      <ol class="list-decimal list-inside space-y-4 max-w-3xl mx-auto">
+        <li class="flex items-center space-x-3"><i class="fas fa-ring text-pink-500"></i><span>Casar</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-baby text-pink-500"></i><span>Ter filhos</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-child text-pink-500"></i><span>Nomes dos filhos: Mia Manuelly e Brian O’Conner</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-car-side text-pink-500"></i><span>Carro dos sonhos</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Ter uma casinha na árvore para os nossos filhos</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-swimming-pool text-pink-500"></i><span>Ter uma piscina bem grandona</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-plane text-pink-500"></i><span>Viajar pelo mundo</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-star text-pink-500"></i><span>Ver as estrelas nas Maldivas</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-leaf text-pink-500"></i><span>Visitar Edimburgo no outono</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-icicles text-pink-500"></i><span>Ver a aurora boreal</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-water text-pink-500"></i><span>Nadar com porquinhos nas Bahamas</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-chess-rook text-pink-500"></i><span>Conhecer o castelo de Bran na Romênia</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-tint text-pink-500"></i><span>Ver a cor dos lagos em Banff, Canadá</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-snowflake text-pink-500"></i><span>Visitar Aspen no inverno</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-umbrella-beach text-pink-500"></i><span>Conhecer a Praia Rosa na Indonésia</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-ghost text-pink-500"></i><span>Visitar os EUA no Halloween</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-map-marker-alt text-pink-500"></i><span>Se perder nas ruas de Tóquio</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-moon text-pink-500"></i><span>Ir na praia à noite</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-hot-air-balloon text-pink-500"></i><span>Andar de balão de ar quente</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-fire text-pink-500"></i><span>Ver o festival de lanternas na Tailândia</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-mountain text-pink-500"></i><span>Ir no maior deserto de sal do mundo, na Bolívia</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-child-reaching text-pink-500"></i><span>Viajar em família para a Disney</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Conhecer Nova York no Natal</span></li>
+        <li class="flex items-center space-x-3"><i class="fas fa-film text-pink-500"></i><span>Ir para Los Angeles</span></li>
+      </ol>
+    </div>
+    <button
+      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
+      data-close="popup3"
+    >
+      Fechar 💖
+    </button>
+  </div>
+</div>
+
+<!-- Cartinha 4 Popup -->
+<div
+  id="popup4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="popup4Title"
+  tabindex="-1"
+  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
+>
+  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
+    <h3 id="popup4Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Coisas que amo em você</h3>
+    <p>
+      Amo seu sorriso que ilumina meus dias, seu jeito carinhoso que me faz sentir especial, sua inteligência que me inspira, e a forma como você me entende sem precisar de palavras. Amo cada detalhe que faz de você única e perfeita para mim.
+    </p>
+    <button
+      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
+      data-close="popup4"
+    >
+      Fechar 💖
+    </button>
+  </div>
+</div>
+
+<!-- Cartinha 5 Popup -->
+<div
+  id="popup5"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="popup5Title"
+  tabindex="-1"
+  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
+>
+  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
+    <h3 id="popup5Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Se eu pudesse te abraçar agora…</h3>
+    <p>
+      Eu te abraçaria bem forte, como se quisesse proteger você de tudo e de todos. Sentiria seu cheiro, seu calor, e deixaria o tempo parar só para ficar ali, juntinho, sentindo a paz que só seu abraço me traz.
+    </p>
+    <button
+      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
+      data-close="popup5"
+    >
+      Fechar 💖
+    </button>
+  </div>
+</div>
+
+<!-- Textinho de 7 meses Popup -->
+<div
+  id="popup7Meses"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="popup7Title"
+  tabindex="-1"
+  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50 overflow-auto"
+>
+  <div class="bg-pink-50 rounded-3xl max-w-3xl w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed max-h-[90vh] overflow-y-auto">
+    <h3 id="popup7Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Textinho de 7 meses</h3>
+    <p>
+      Amor da minha vida,<br /><br />
+      Hoje completamos 7 meses juntos, e eu não poderia estar mais feliz. Cada momento ao seu lado é um sonho que se realiza, uma aventura cheia de carinho, risadas e cumplicidade. Você é a luz que ilumina meus dias e a paz que acalma meu coração.<br /><br />
+      Obrigado por ser essa pessoa incrível, por me aceitar com todos os meus defeitos e por me fazer querer ser melhor a cada dia. Que venham muitos meses e anos, sempre juntos, construindo nossa história com amor e respeito.<br /><br />
+      Eu te amo mais do que palavras podem dizer, e estarei sempre aqui para você, minha princesa.<br /><br />
+      Com todo meu amor,<br />
+      Seu eterno namorado.
+    </p>
+    <button
+      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
+      data-close="popup7Meses"
+    >
+      Fechar 💖
+    </button>
+  </div>
+</div>
+
+<script>
+  // Função para calcular tempo exato entre datas e agora com meses, dias, horas e segundos
+  function calcularTempoDetalhado(dataString) {
+    const dataEvento = new Date(dataString);
+    const agora = new Date();
+
+    if (agora < dataEvento) return "Ainda não aconteceu";
+
+    // Calcular meses e dias com cuidado
+    let anosDiff = agora.getFullYear() - dataEvento.getFullYear();
+    let mesesDiff = agora.getMonth() - dataEvento.getMonth();
+    let diasDiff = agora.getDate() - dataEvento.getDate();
+    let horasDiff = agora.getHours() - dataEvento.getHours();
+    let minutosDiff = agora.getMinutes() - dataEvento.getMinutes();
+    let segundosDiff = agora.getSeconds() - dataEvento.getSeconds();
+
+    if (segundosDiff < 0) {
+      segundosDiff += 60;
+      minutosDiff--;
+    }
+    if (minutosDiff < 0) {
+      minutosDiff += 60;
+      horasDiff--;
+    }
+    if (horasDiff < 0) {
+      horasDiff += 24;
+      diasDiff--;
+    }
+    if (diasDiff < 0) {
+      // Ajustar dias do mês anterior
+      const mesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0);
+      diasDiff += mesAnterior.getDate();
+      mesesDiff--;
+    }
+    if (mesesDiff < 0) {
+      mesesDiff += 12;
+      anosDiff--;
+    }
+
+    const totalMeses = anosDiff * 12 + mesesDiff;
+
+    // Montar string com meses, dias, horas, minutos e segundos
+    let partes = [];
+    if (totalMeses > 0) partes.push(totalMeses + (totalMeses === 1 ? " mês" : " meses"));
+    if (diasDiff > 0) partes.push(diasDiff + (diasDiff === 1 ? " dia" : " dias"));
+    if (horasDiff > 0) partes.push(horasDiff + (horasDiff === 1 ? " hora" : " horas"));
+    if (minutosDiff > 0) partes.push(minutosDiff + (minutosDiff === 1 ? " minuto" : " minutos"));
+    if (segundosDiff >= 0) partes.push(segundosDiff + (segundosDiff === 1 ? " segundo" : " segundos"));
+
+    if (partes.length === 0) return "Agora mesmo";
+
+    // Mostrar até 4 partes para não ficar muito longo
+    return partes.slice(0, 4).join(", ");
+  }
+
+  // Atualizar os tempos na linha do tempo
+  function atualizarTempos() {
+    document.getElementById("time1").textContent = calcularTempoDetalhado("2024-10-26T00:00:00");
+    document.getElementById("time2").textContent = calcularTempoDetalhado("2024-11-13T00:00:00");
+    document.getElementById("time3").textContent = calcularTempoDetalhado("2024-11-15T00:00:00");
+    document.getElementById("time4").textContent = calcularTempoDetalhado("2024-11-24T00:00:00");
+    document.getElementById("time5").textContent = calcularTempoDetalhado("2024-10-26T00:00:00");
+  }
+
+  atualizarTempos();
+  // Atualiza a cada segundo para o contador ficar dinâmico
+  setInterval(atualizarTempos, 1000);
+
+  // Discord webhook send message
+  const discordBtn = document.getElementById("discordBtn");
+  discordBtn.addEventListener("click", async () => {
+    discordBtn.disabled = true;
+    discordBtn.innerHTML = `<i class="fas fa-spinner fa-spin fa-lg"></i><span> Enviando...</span>`;
+    try {
+      const response = await fetch(
+        "https://discord.com/api/webhooks/1373390896497954998/bCmczixsio0AxH__cjgTUDk_cJyUrCjq8gtZ-ZnFNMeaJ9Cm1VRydXYBD2Wsa431VXrT",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: "EUUUUU TEEEE AMOOOOO MUITOOOOOO MINHAAAAA GOSTOSAAAAAAAAA❤❤",
+          }),
         }
-
-        const months = Math.floor(diff / (30 * 24 * 3600));
-        diff -= months * 30 * 24 * 3600;
-        const weeks = Math.floor(diff / (7 * 24 * 3600));
-        diff -= weeks * 7 * 24 * 3600;
-        const days = Math.floor(diff / (24 * 3600));
-        diff -= days * 24 * 3600;
-        const hours = Math.floor(diff / 3600);
-        diff -= hours * 3600;
-        const minutes = Math.floor(diff / 60);
-        const seconds = diff - minutes * 60;
-
-        const parts = [];
-        if (months) parts.push(`${months} ${months === 1 ? 'mês' : 'meses'}`);
-        if (weeks) parts.push(`${weeks} ${weeks === 1 ? 'semana' : 'semanas'}`);
-        if (days) parts.push(`${days} ${days === 1 ? 'dia' : 'dias'}`);
-        if (hours) parts.push(`${hours} ${hours === 1 ? 'hora' : 'horas'}`);
-        if (minutes) parts.push(`${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}`);
-        parts.push(`${seconds} ${seconds === 1 ? 'segundo' : 'segundos'}`);
-
-        document.getElementById(id).textContent = parts.join(', ') + ' atrás';
-      });
+      );
+      if (response.ok) {
+        discordBtn.innerHTML = `<i class="fas fa-check fa-lg"></i><span> Mensagem enviada! 💖</span>`;
+      } else {
+        throw new Error("Erro ao enviar");
+      }
+    } catch (e) {
+      discordBtn.innerHTML = `<i class="fas fa-exclamation-triangle fa-lg"></i><span> Falha ao enviar</span>`;
+      setTimeout(() => {
+        discordBtn.innerHTML = `<i class="fab fa-discord fa-lg"></i><span>Enviar mensagem no discord 💖</span>`;
+        discordBtn.disabled = false;
+      }, 3000);
+      return;
     }
-    updateElapsed();
-    setInterval(updateElapsed, 1000);
+    setTimeout(() => {
+      discordBtn.innerHTML = `<i class="fab fa-discord fa-lg"></i><span>Enviar mensagem no discord 💖</span>`;
+      discordBtn.disabled = false;
+    }, 5000);
+  });
 
-    // Modal logic for cartinhas
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalClose = document.getElementById('modalClose');
-    const envelopes = document.querySelectorAll('.envelope');
-    let lastFocusedEnvelope = null;
+  // Popup open/close logic
+  const buttons = document.querySelectorAll("button[data-popup]");
+  const popups = document.querySelectorAll("div[role='dialog']");
+  const closeButtons = document.querySelectorAll("button[data-close]");
 
-    envelopes.forEach((env) => {
-      env.addEventListener('click', () => {
-        lastFocusedEnvelope = env;
-        openModal(env);
-      });
-      env.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          lastFocusedEnvelope = env;
-          openModal(env);
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const popupId = btn.getAttribute("data-popup");
+      const popup = document.getElementById(popupId);
+      if (popup) {
+        openPopup(popup);
+      }
+    });
+  });
+
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const popupId = btn.getAttribute("data-close");
+      const popup = document.getElementById(popupId);
+      if (popup) {
+        closePopup(popup);
+      }
+    });
+  });
+
+  // Open popup function
+  function openPopup(popup) {
+    popup.classList.remove("opacity-0", "pointer-events-none");
+    popup.classList.add("opacity-100");
+    popup.querySelector("button[data-close]").focus();
+    document.body.style.overflow = "hidden";
+  }
+
+  // Close popup function
+  function closePopup(popup) {
+    popup.classList.add("opacity-0", "pointer-events-none");
+    popup.classList.remove("opacity-100");
+    document.body.style.overflow = "";
+  }
+
+  // Close popup on outside click or ESC key
+  popups.forEach((popup) => {
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) {
+        closePopup(popup);
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      popups.forEach((popup) => {
+        if (!popup.classList.contains("opacity-0")) {
+          closePopup(popup);
         }
       });
-    });
-
-    function openModal(env) {
-      modalTitle.textContent = env.getAttribute('data-title');
-      modalDesc.textContent = env.getAttribute('data-text');
-      modal.classList.add('active');
-      modalClose.focus();
-      document.body.style.overflow = 'hidden';
     }
+  });
 
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
-    });
-
-    function closeModal() {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      if (lastFocusedEnvelope) {
-        lastFocusedEnvelope.focus();
-      }
-    }
-
-    // Discord webhook button
-    const btnAmor = document.getElementById('btnAmor');
-    const msgStatus = document.getElementById('msgStatus');
-    const webhookURL = 'https://discord.com/api/webhooks/1373390896497954998/bCmczixsio0AxH__cjgTUDk_cJyUrCjq8gtZ-ZnFNMeaJ9Cm1VRydXYBD2Wsa431VXrT';
-    const messageContent = 'EUUUUU TEEEE AMOOOOO MUITOOOOOO MINHAAAAA GOSTOSAAAAAAAAA❤❤';
-
-    btnAmor.addEventListener('click', async () => {
-      btnAmor.disabled = true;
-      msgStatus.textContent = 'Enviando mensagem...';
-
-      try {
-        const res = await fetch(webhookURL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content: messageContent }),
-        });
-        if (res.ok) {
-          msgStatus.textContent = 'Mensagem enviada com sucesso! ❤️';
-        } else {
-          msgStatus.textContent = 'Erro ao enviar mensagem. Tente novamente.';
-        }
-      } catch (error) {
-        msgStatus.textContent = 'Erro ao enviar mensagem. Tente novamente.';
-      } finally {
-        setTimeout(() => {
-          msgStatus.textContent = '';
-          btnAmor.disabled = false;
-        }, 4000);
-      }
-    });
-
-    // Modal Textinho logic
-    const btnTextinho = document.getElementById('btnTextinho');
-    const modalTextinho = document.getElementById('modalTextinho');
-    const modalTextinhoClose = document.getElementById('modalTextinhoClose');
-    const modalTextinhoContent = modalTextinho.querySelector('.modal-content');
-    let lastFocusedBtnTextinho = null;
-
-    btnTextinho.addEventListener('click', () => {
-      lastFocusedBtnTextinho = btnTextinho;
-      modalTextinho.style.opacity = '1';
-      modalTextinho.style.pointerEvents = 'auto';
-      modalTextinho.classList.add('active');
-      modalTextinhoContent.focus();
-      document.body.style.overflow = 'hidden';
-    });
-
-    modalTextinhoClose.addEventListener('click', closeModalTextinho);
-    modalTextinho.addEventListener('click', (e) => {
-      if (e.target === modalTextinho) closeModalTextinho();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modalTextinho.classList.contains('active')) {
-        closeModalTextinho();
-      }
-    });
-
-    function closeModalTextinho() {
-      modalTextinho.style.opacity = '0';
-      modalTextinho.style.pointerEvents = 'none';
-      modalTextinho.classList.remove('active');
-      document.body.style.overflow = '';
-      if (lastFocusedBtnTextinho) {
-        lastFocusedBtnTextinho.focus();
-      }
-    }
-
-    // Floating animation for image
-    const img = document.querySelector('section > img.animate-float');
-    if(img){
-      img.animate([
-        { transform: 'translateY(0px)' },
-        { transform: 'translateY(-15px)' },
-        { transform: 'translateY(0px)' }
-      ], {
-        duration: 6000,
-        iterations: Infinity,
-        easing: 'ease-in-out'
-      });
-    }
-
-    // Floating hearts background generation
-    const heartsBg = document.querySelector('.hearts-bg');
-    const heartCount = 30;
-    for(let i=0; i<heartCount; i++){
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = `${Math.random() * 100}vw`;
-      heart.style.width = heart.style.height = `${10 + Math.random() * 20}px`;
-      heart.style.animationDuration = `${5 + Math.random() * 7}s`;
-      heart.style.animationDelay = `${Math.random() * 7}s`;
-      heartsBg.appendChild(heart);
-    }
-
-    // EU TE AMO counter with persistence
-    const contadorAmor = document.getElementById('contadorAmor');
-    const STORAGE_KEY = 'contadorEuTeAmo';
-
-    function getStoredCount() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored && !isNaN(stored)) {
-        return parseInt(stored, 10);
-      }
-      return 1;
-    }
-
-    function setStoredCount(value) {
-      localStorage.setItem(STORAGE_KEY, value.toString());
-    }
-
-    let count = getStoredCount();
-    contadorAmor.textContent = `EU TE AMO: ${count}`;
-
-    setInterval(() => {
-      count++;
-      contadorAmor.textContent = `EU TE AMO: ${count}`;
-      setStoredCount(count);
-    }, 1000);
-  </script>
+  // Button textinho de 7 meses open popup
+  const btn7Meses = document.getElementById("btn7Meses");
+  const popup7Meses = document.getElementById("popup7Meses");
+  btn7Meses.addEventListener("click", () => {
+    openPopup(popup7Meses);
+  });
+</script>
 </body>
 </html>
