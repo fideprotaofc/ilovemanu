@@ -1,0 +1,157 @@
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulário 2/27</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffe4e6; /* light pink */
+      color: #4b5563; /* gray-700 */
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px #db2777;
+      border-color: #db2777;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start p-6">
+  <main class="w-full max-w-lg bg-white rounded-3xl shadow-lg p-10 mt-12 mb-12 text-center">
+    <h1 class="text-pink-700 text-2xl font-semibold mb-6 leading-tight">
+      BRINCADEIRA, SÃO SÓ 2 PÁGINAS KKKKKK
+    </h1>
+    <p class="text-gray-700 text-lg mb-10 font-medium">
+      AINDA N TO CONVENCIDO Q VC SEJA A MANU MSM, PREENCHA SEU NOME COMPLETO<br />
+      <span class="font-semibold text-pink-600">MANUELLY GONZAGA FRANÇA SANTOS</span>
+    </p>
+
+    <form id="form" class="w-full flex flex-col items-center gap-8" novalidate>
+      <div class="w-full flex flex-col items-center">
+        <label for="nomeCompleto" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">NOME COMPLETO</label>
+        <input
+          type="text"
+          id="nomeCompleto"
+          name="nomeCompleto"
+          autocomplete="name"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 placeholder-pink-300 text-lg font-medium transition-shadow duration-200"
+          required
+          placeholder="Digite seu nome completo"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="w-full flex flex-col items-center">
+        <label for="idadeMaxo" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">IDADE DO SEU MAXO</label>
+        <input
+          type="number"
+          id="idadeMaxo"
+          name="idadeMaxo"
+          min="0"
+          max="120"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 placeholder-pink-300 text-lg font-medium transition-shadow duration-200"
+          required
+          placeholder="Digite a idade do seu maxo"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        />
+      </div>
+
+      <div class="w-full flex flex-col items-center relative">
+        <label for="querPresente" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">Você quer mesmo abrir esse presente?</label>
+        <select
+          id="querPresente"
+          name="querPresente"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 text-lg font-medium cursor-pointer transition-shadow duration-200"
+          required
+          aria-describedby="msgPresente"
+        >
+          <option value="" disabled selected>Selecione uma opção</option>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+        <p id="msgPresente" class="text-pink-700 mt-2 text-sm font-semibold opacity-0 transition-opacity duration-300 select-none">
+          Vc não quer abrir o presente??😭😭
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        id="btnFinalizar"
+        disabled
+        class="mt-8 w-full max-w-md py-4 rounded-full bg-pink-600 text-white font-semibold text-xl tracking-wide shadow-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
+      >
+        Finalizar
+      </button>
+    </form>
+  </main>
+
+  <footer class="w-full max-w-lg text-center text-pink-400 text-sm mb-6 select-none">
+    &copy; Para minha Princesa
+  </footer>
+
+  <script>
+    const nomeCompletoInput = document.getElementById('nomeCompleto');
+    const idadeMaxoInput = document.getElementById('idadeMaxo');
+    const querPresenteSelect = document.getElementById('querPresente');
+    const btnFinalizar = document.getElementById('btnFinalizar');
+    const msgPresente = document.getElementById('msgPresente');
+    const form = document.getElementById('form');
+
+    function validateInputs() {
+      const nomeCompleto = nomeCompletoInput.value.trim().toLowerCase();
+      const idadeMaxo = idadeMaxoInput.value.trim();
+      const querPresente = querPresenteSelect.value.trim().toLowerCase();
+
+      const nomeValido = nomeCompleto === 'manuelly gonzaga frança santos';
+      const idadeValida = idadeMaxo === '14';
+      const querPresenteValido = querPresente === 'sim';
+
+      if (querPresente === 'nao') {
+        msgPresente.style.opacity = '1';
+      } else {
+        msgPresente.style.opacity = '0';
+      }
+
+      if (nomeValido && idadeValida && querPresenteValido) {
+        btnFinalizar.disabled = false;
+      } else {
+        btnFinalizar.disabled = true;
+      }
+    }
+
+    nomeCompletoInput.addEventListener('input', validateInputs);
+    idadeMaxoInput.addEventListener('input', validateInputs);
+    querPresenteSelect.addEventListener('change', validateInputs);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const nomeCompleto = nomeCompletoInput.value.trim().toLowerCase();
+      const idadeMaxo = idadeMaxoInput.value.trim();
+      const querPresente = querPresenteSelect.value.trim().toLowerCase();
+
+      if (nomeCompleto !== 'manuelly gonzaga frança santos') {
+        alert('Nome completo deve ser "Manuelly Gonzaga França Santos"');
+        return;
+      }
+      if (idadeMaxo !== '14') {
+        alert('Idade do seu maxo deve ser 14');
+        return;
+      }
+      if (querPresente !== 'sim') {
+        alert('Vc não quer abrir o presente??😭😭');
+        return;
+      }
+
+      window.location.href = 'main.html';
+    });
+  </script>
+</body>
+</html>
