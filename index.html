@@ -1,0 +1,195 @@
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulário 1/27</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffe4e6; /* light pink */
+    }
+    /* Custom focus style for inputs */
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px #db2777;
+      border-color: #db2777;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start p-6">
+  <main class="w-full max-w-lg bg-white rounded-3xl shadow-lg p-10 mt-12 mb-12">
+    <h1 class="text-center text-2xl font-semibold text-pink-700 mb-6 leading-tight">
+      SE VC REALMENTE É ELA<br />
+      PREENCHA O PEQUENO FORMULÁRIO DE 27 PÁGINAS ABAIXO
+    </h1>
+    <div class="text-center mb-10 font-semibold text-pink-600 text-lg tracking-wide select-none">1/27</div>
+
+    <form id="form" class="w-full flex flex-col items-center gap-8" novalidate>
+      <div class="w-full flex flex-col items-center">
+        <label for="primeiroNome" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">PRIMEIRO NOME</label>
+        <input
+          type="text"
+          id="primeiroNome"
+          name="primeiroNome"
+          autocomplete="given-name"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 placeholder-pink-300 text-lg font-medium transition-shadow duration-200"
+          required
+          aria-describedby="primeiroNomeHelp"
+          placeholder="Digite seu primeiro nome"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="w-full flex flex-col items-center">
+        <label for="segundoNome" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">SEGUNDO NOME</label>
+        <input
+          type="text"
+          id="segundoNome"
+          name="segundoNome"
+          autocomplete="family-name"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 placeholder-pink-300 text-lg font-medium transition-shadow duration-200"
+          required
+          aria-describedby="segundoNomeHelp"
+          placeholder="Digite seu segundo nome"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="w-full flex flex-col items-center">
+        <label for="idade" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">IDADE</label>
+        <input
+          type="number"
+          id="idade"
+          name="idade"
+          min="0"
+          max="120"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 placeholder-pink-300 text-lg font-medium transition-shadow duration-200"
+          required
+          aria-describedby="idadeHelp"
+          placeholder="Digite sua idade"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        />
+      </div>
+
+      <div class="w-full flex flex-col items-center relative">
+        <label for="nivelBeleza" class="mb-2 font-semibold text-pink-700 text-lg tracking-wide">NÍVEL DE BELEZA (0 a 10)</label>
+        <input
+          type="number"
+          id="nivelBeleza"
+          name="nivelBeleza"
+          min="0"
+          max="10"
+          class="w-full max-w-md px-5 py-3 rounded-xl border border-pink-300 text-center text-pink-900 placeholder-pink-300 text-lg font-medium transition-shadow duration-200"
+          required
+          aria-describedby="nivelBelezaMsg"
+          placeholder="Digite seu nível de beleza"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        />
+        <p id="nivelBelezaMsg" class="text-pink-700 mt-2 text-sm font-semibold opacity-0 transition-opacity duration-300 select-none">
+          seu nivel de beleza deve ser 10
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        id="btnProxima"
+        disabled
+        class="mt-8 w-full max-w-md py-4 rounded-full bg-pink-600 text-white font-semibold text-xl tracking-wide shadow-lg hover:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
+      >
+        Próxima página
+      </button>
+    </form>
+  </main>
+
+  <footer class="w-full max-w-lg text-center text-pink-400 text-sm mb-6 select-none">
+    &copy; 2024 Formulário Profissional
+  </footer>
+
+  <script>
+    const primeiroNomeInput = document.getElementById('primeiroNome');
+    const segundoNomeInput = document.getElementById('segundoNome');
+    const idadeInput = document.getElementById('idade');
+    const nivelBelezaInput = document.getElementById('nivelBeleza');
+    const btnProxima = document.getElementById('btnProxima');
+    const nivelBelezaMsg = document.getElementById('nivelBelezaMsg');
+    const form = document.getElementById('form');
+
+    function validateInputs() {
+      const primeiroNome = primeiroNomeInput.value.trim().toLowerCase();
+      const segundoNome = segundoNomeInput.value.trim().toLowerCase();
+      const idade = idadeInput.value.trim();
+      const nivelBeleza = nivelBelezaInput.value.trim();
+
+      // Validate primeiro nome: only enable if "manuelly"
+      const primeiroNomeValido = primeiroNome === 'manuelly';
+
+      // Validate segundo nome: only accept "gonzaga"
+      const segundoNomeValido = segundoNome === 'gonzaga';
+
+      // Validate idade: must be "13"
+      const idadeValida = idade === '13';
+
+      // Validate nivel de beleza: must be 10, else show message
+      if (nivelBeleza !== '') {
+        if (parseInt(nivelBeleza, 10) < 10) {
+          nivelBelezaMsg.style.opacity = '1';
+        } else {
+          nivelBelezaMsg.style.opacity = '0';
+        }
+      } else {
+        nivelBelezaMsg.style.opacity = '0';
+      }
+
+      // Enable button only if primeiroNomeValido, segundoNomeValido, idadeValida and nivelBeleza is not empty
+      if (primeiroNomeValido && segundoNomeValido && idadeValida && nivelBeleza !== '') {
+        btnProxima.disabled = false;
+      } else {
+        btnProxima.disabled = true;
+      }
+    }
+
+    primeiroNomeInput.addEventListener('input', validateInputs);
+    segundoNomeInput.addEventListener('input', validateInputs);
+    idadeInput.addEventListener('input', validateInputs);
+    nivelBelezaInput.addEventListener('input', validateInputs);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Final validation before redirect
+      const primeiroNome = primeiroNomeInput.value.trim().toLowerCase();
+      const segundoNome = segundoNomeInput.value.trim().toLowerCase();
+      const idade = idadeInput.value.trim();
+      const nivelBeleza = nivelBelezaInput.value.trim();
+
+      if (primeiroNome !== 'manuelly') {
+        alert('Primeiro nome deve ser "Manuelly"');
+        return;
+      }
+      if (segundoNome !== 'gonzaga') {
+        alert('Segundo nome deve ser "GONZAGA"');
+        return;
+      }
+      if (idade !== '13') {
+        alert('Idade deve ser 13');
+        return;
+      }
+      if (parseInt(nivelBeleza, 10) < 10) {
+        alert('seu nivel de beleza deve ser 10');
+        return;
+      }
+
+      // Redirect to pagina2.html
+      window.location.href = 'pagina2.html';
+    });
+  </script>
+</body>
+</html>
