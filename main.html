@@ -1,0 +1,918 @@
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>7 meses que eu conheço minha princesa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #ffe4f0 0%, #f9e8f9 100%);
+      color: #5b3b7a;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 5rem;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 {
+      font-family: 'Great Vibes', cursive;
+      color: #a56eea;
+      text-shadow: 0 2px 6px rgba(165,110,234,0.4);
+    }
+    /* Scrollbar for timeline container */
+    .timeline-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+    .timeline-scroll::-webkit-scrollbar-track {
+      background: #fce7f3;
+      border-radius: 10px;
+    }
+    .timeline-scroll::-webkit-scrollbar-thumb {
+      background: #b18ffb;
+      border-radius: 10px;
+    }
+    /* Card envelope style */
+    .envelope {
+      background: linear-gradient(135deg, #fce7f3 0%, #f9d5e5 100%);
+      border-radius: 1.25rem;
+      box-shadow: 0 10px 20px rgba(165, 110, 234, 0.25);
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      will-change: transform, box-shadow;
+    }
+    .envelope:hover, .envelope:focus-visible {
+      transform: translateY(-10px) scale(1.06);
+      box-shadow: 0 25px 45px rgba(165, 110, 234, 0.55);
+      outline: none;
+    }
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      background: #d8b4fe;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform: translateX(-50%);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    /* Modal styles */
+    .modal-bg {
+      background: rgba(165, 110, 234, 0.95);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 70;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+      padding: 1rem;
+    }
+    .modal-bg.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: #fff0f6;
+      border-radius: 2rem;
+      max-width: 95vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 3rem 3.5rem;
+      box-shadow: 0 20px 50px rgba(165, 110, 234, 0.5);
+      position: relative;
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: #6b21a8;
+      font-weight: 600;
+      white-space: pre-wrap;
+      user-select: text;
+      will-change: transform, opacity;
+      animation: modalFadeIn 0.5s ease forwards;
+    }
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: #b18ffb;
+      color: white;
+      font-weight: 700;
+      border-radius: 9999px;
+      padding: 0.5rem 1.3rem;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 6px 18px rgba(165, 110, 234, 0.6);
+      transition: background-color 0.35s ease, transform 0.3s ease;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.1rem;
+      will-change: background-color, transform;
+    }
+    .modal-close-btn:hover, .modal-close-btn:focus-visible {
+      background: #7c3aed;
+      outline: none;
+      transform: scale(1.1);
+    }
+    /* Scrollbar for modal */
+    .modal-content::-webkit-scrollbar {
+      width: 12px;
+    }
+    .modal-content::-webkit-scrollbar-track {
+      background: #fce7f3;
+      border-radius: 14px;
+    }
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #b18ffb;
+      border-radius: 14px;
+    }
+    /* Timeline event circle */
+    .timeline-circle {
+      background: #b18ffb;
+      border: 4px solid #7c3aed;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 9999px;
+      flex-shrink: 0;
+      box-shadow: 0 0 14px #7c3aeddd;
+      transition: background-color 0.3s ease;
+      will-change: box-shadow;
+    }
+    /* Timeline vertical line */
+    .timeline-line {
+      width: 5px;
+      background: #d8b4fe;
+      margin-left: 0.9rem;
+      margin-right: 1.8rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    /* Scroll smooth for timeline container */
+    .timeline-scroll {
+      scroll-behavior: smooth;
+    }
+    /* Button special */
+    .btn-special {
+      background: linear-gradient(90deg, #b18ffb, #7c3aed);
+      color: white;
+      font-weight: 900;
+      padding: 1.4rem 3.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 12px 32px rgba(124, 58, 237, 0.85);
+      transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.3s ease;
+      user-select: none;
+      font-size: 1.35rem;
+      letter-spacing: 0.07em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      box-sizing: border-box;
+      will-change: background, box-shadow, transform;
+      cursor: pointer;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .btn-special:hover:not(:disabled), .btn-special:focus-visible:not(:disabled) {
+      background: linear-gradient(90deg, #7c3aed, #b18ffb);
+      box-shadow: 0 18px 48px rgba(124, 58, 237, 1);
+      outline: none;
+      transform: scale(1.07);
+    }
+    .btn-special:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    /* Scroll container for timeline horizontal on mobile */
+    @media (max-width: 640px) {
+      .timeline-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .timeline-scroll {
+        flex-wrap: nowrap;
+      }
+    }
+    /* Lista para o Futuro - números ao invés de checkbox */
+    .future-list {
+      counter-reset: item-counter;
+    }
+    .future-list li {
+      position: relative;
+      padding-left: 3.8rem;
+      line-height: 1.6;
+      font-weight: 700;
+      color: #7c3aed;
+      user-select: none;
+      font-size: 1.2rem;
+      transition: color 0.35s ease;
+      cursor: default;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 2px rgba(124, 58, 237, 0.15);
+    }
+    .future-list li:hover, .future-list li:focus-visible {
+      color: #c4a7ff;
+      outline: none;
+    }
+    .future-list li::before {
+      counter-increment: item-counter;
+      content: counter(item-counter);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      color: white;
+      font-weight: 900;
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 16px rgba(124, 58, 237, 0.6);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.3rem;
+      user-select: none;
+      transition: background 0.4s ease;
+      will-change: background;
+    }
+    /* Texto principal abaixo da lista */
+    .future-main-text {
+      margin-top: 1.8rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #7c3aed;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 0 2px 5px rgba(124, 58, 237, 0.5);
+      user-select: none;
+      letter-spacing: 0.07em;
+      animation: pulseText 3s ease-in-out infinite;
+    }
+    @keyframes pulseText {
+      0%, 100% { text-shadow: 0 2px 5px rgba(124, 58, 237, 0.5); color: #7c3aed; }
+      50% { text-shadow: 0 4px 12px rgba(165, 110, 234, 0.9); color: #a78bfa; }
+    }
+    /* Link button for "A flor do nosso amor" */
+    .link-flor {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: linear-gradient(90deg, #f9a8d4, #a78bfa);
+      color: white;
+      font-weight: 700;
+      padding: 1.1rem 3rem;
+      border-radius: 9999px;
+      box-shadow: 0 10px 30px rgba(167, 139, 250, 0.8);
+      font-size: 1.3rem;
+      text-decoration: none;
+      transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.3s ease;
+      user-select: none;
+      margin-bottom: 3.5rem;
+      font-family: 'Quicksand', sans-serif;
+      letter-spacing: 0.06em;
+      will-change: background, box-shadow, transform;
+      cursor: pointer;
+    }
+    .link-flor:hover, .link-flor:focus-visible {
+      background: linear-gradient(90deg, #a78bfa, #f9a8d4);
+      box-shadow: 0 15px 45px rgba(167, 139, 250, 1);
+      outline: none;
+      text-decoration: none;
+      transform: scale(1.05);
+    }
+    /* Botão Textinho de 7 meses */
+    #btnTextinho {
+      background: linear-gradient(90deg, #fbb1b1, #a78bfa);
+      color: white;
+      font-weight: 900;
+      padding: 1.5rem 4rem;
+      border-radius: 9999px;
+      box-shadow: 0 14px 40px rgba(255, 105, 180, 0.85);
+      transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.35s ease;
+      user-select: none;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-sizing: border-box;
+      will-change: background, box-shadow, transform;
+      cursor: pointer;
+      margin-bottom: 4rem;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 0 2px 6px rgba(255, 105, 180, 0.7);
+    }
+    #btnTextinho:hover, #btnTextinho:focus-visible {
+      background: linear-gradient(90deg, #a78bfa, #fbb1b1);
+      box-shadow: 0 20px 55px rgba(255, 105, 180, 1);
+      outline: none;
+      transform: scale(1.1);
+    }
+    /* Botão playlist */
+    #btnPlaylist {
+      background: linear-gradient(90deg, #7c3aed, #fbb1b1);
+      color: white;
+      font-weight: 800;
+      padding: 1.2rem 3.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.8);
+      transition: background 0.45s ease, box-shadow 0.45s ease, transform 0.3s ease;
+      user-select: none;
+      font-size: 1.3rem;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      box-sizing: border-box;
+      will-change: background, box-shadow, transform;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      margin-top: 1.5rem;
+    }
+    #btnPlaylist:hover, #btnPlaylist:focus-visible {
+      background: linear-gradient(90deg, #fbb1b1, #7c3aed);
+      box-shadow: 0 15px 45px rgba(255, 105, 180, 1);
+      outline: none;
+      transform: scale(1.05);
+      text-decoration: none;
+    }
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 3.8rem;
+      }
+      h2 {
+        font-size: 2.5rem;
+      }
+      .btn-special {
+        font-size: 1.2rem;
+        padding: 1.2rem 2.5rem;
+      }
+      .future-list li {
+        font-size: 1.1rem;
+        padding-left: 3.3rem;
+      }
+      .future-list li::before {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+      }
+      #btnTextinho {
+        font-size: 1.3rem;
+        padding: 1.3rem 3rem;
+      }
+      #btnPlaylist {
+        font-size: 1.15rem;
+        padding: 1rem 3rem;
+      }
+    }
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 3rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      .btn-special {
+        font-size: 1.05rem;
+        padding: 1rem 2rem;
+      }
+      .future-list li {
+        font-size: 1rem;
+        padding-left: 3rem;
+      }
+      .future-list li::before {
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 1.1rem;
+      }
+      #btnTextinho {
+        font-size: 1.1rem;
+        padding: 1rem 2.5rem;
+      }
+      #btnPlaylist {
+        font-size: 1rem;
+        padding: 0.9rem 2.5rem;
+      }
+    }
+    /* Floating animation for image */
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .animate-float {
+      animation: floatUpDown 6s ease-in-out infinite;
+      will-change: transform;
+    }
+    /* Cute hearts floating background */
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 0;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #fbb1b1;
+      transform: rotate(-45deg);
+      animation: floatHearts linear infinite;
+      opacity: 0.8;
+      border-radius: 3px 3px 0 0;
+      box-shadow:
+        10px 0 0 #fbb1b1,
+        0 10px 0 #fbb1b1;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #fbb1b1;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100vh) rotate(-45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-150vh) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="relative flex flex-col items-center p-6 max-w-5xl mx-auto">
+  <!-- Floating hearts background -->
+  <div class="hearts-bg" aria-hidden="true"></div>
+
+  <header class="mb-10 text-center select-none relative z-10">
+    <h1 class="text-6xl md:text-7xl font-extrabold mb-3 leading-tight">7 meses que eu conheço minha princesa</h1>
+    <p class="text-2xl md:text-3xl text-purple-700 font-semibold tracking-wide drop-shadow-md">Cada momento, eternizado no tempo com muito amor 💜</p>
+  </header>
+
+  <!-- Timeline Section -->
+  <section class="timeline-container w-full mb-14 relative z-10">
+    <h2 class="text-4xl font-semibold mb-10 text-center text-purple-600 select-none drop-shadow-sm">Linha do Tempo</h2>
+    <div class="timeline-scroll flex flex-col md:flex-row md:justify-between md:space-x-8 space-y-12 md:space-y-0 px-4 md:px-0">
+      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
+        <div class="timeline-circle" aria-hidden="true"></div>
+        <div class="timeline-line hidden md:block h-28"></div>
+        <div>
+          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">Eu te conheci</h3>
+          <time datetime="2024-10-26" class="block mb-2 text-purple-500 font-medium select-text">26/10/2024</time>
+          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed1" aria-live="polite" aria-atomic="true">Calculando...</p>
+        </div>
+      </article>
+
+      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
+        <div class="timeline-circle" aria-hidden="true"></div>
+        <div class="timeline-line hidden md:block h-28"></div>
+        <div>
+          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">Eu te pedi em namoro</h3>
+          <time datetime="2024-11-13" class="block mb-2 text-purple-500 font-medium select-text">13/11/2024</time>
+          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed2" aria-live="polite" aria-atomic="true">Calculando...</p>
+        </div>
+      </article>
+
+      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
+        <div class="timeline-circle" aria-hidden="true"></div>
+        <div class="timeline-line hidden md:block h-28"></div>
+        <div>
+          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">O primeiro "eu te amo"</h3>
+          <time datetime="2024-11-15" class="block mb-2 text-purple-500 font-medium select-text">15/11/2024</time>
+          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed3" aria-live="polite" aria-atomic="true">Calculando...</p>
+        </div>
+      </article>
+
+      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
+        <div class="timeline-circle" aria-hidden="true"></div>
+        <div class="timeline-line hidden md:block h-28"></div>
+        <div>
+          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">O primeiro texto</h3>
+          <time datetime="2024-11-24" class="block mb-2 text-purple-500 font-medium select-text">24/11/2024</time>
+          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed4" aria-live="polite" aria-atomic="true">Calculando...</p>
+        </div>
+      </article>
+
+      <article class="flex items-center md:flex-col md:items-center md:text-center md:max-w-[180px]">
+        <div class="timeline-circle" aria-hidden="true"></div>
+        <div class="timeline-line hidden md:block h-28"></div>
+        <div>
+          <h3 class="font-semibold text-purple-700 text-lg mb-1 select-text">Eu te amo desde</h3>
+          <time datetime="2024-10-26" class="block mb-2 text-purple-500 font-medium select-text">26/10/2024</time>
+          <p class="text-purple-600 text-sm leading-relaxed font-medium" id="elapsed5" aria-live="polite" aria-atomic="true">Calculando...</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Image Section -->
+  <section class="w-full max-w-4xl mb-16 px-4 relative z-10">
+    <img
+      src="https://media.discordapp.net/attachments/1373265897417998346/1373270339831992320/eu_e_manu.png?ex=6829cd2b&is=68287bab&hm=babff24566ad359384ad0ed454e09e78759e91851179bc6f2f4d9c222455a942&=&format=webp&quality=lossless&width=892&height=595"
+      alt="Imagem artística e romântica do futuro juntos, mostrando um casal feliz em um cenário sonhador e colorido, com tons suaves de rosa e roxo, simbolizando amor e união"
+      class="w-full h-auto rounded-3xl shadow-2xl mx-auto animate-float"
+      loading="lazy"
+      decoding="async"
+      fetchpriority="high"
+      style="will-change: transform;"
+    />
+  </section>
+
+  <!-- Button Special -->
+  <section class="mb-20 text-center px-4 relative z-10">
+    <button
+      id="btnAmor"
+      class="btn-special px-12 py-4 select-none"
+      aria-label="Enviar mensagem de amor para Discord"
+      type="button"
+    >
+      <i class="fas fa-heart"></i> Enviar Mensagem de Amor
+    </button>
+    <p id="msgStatus" class="mt-4 text-purple-700 font-semibold min-h-[1.5rem] select-none" aria-live="polite"></p>
+  </section>
+
+  <!-- Link to "A flor do nosso amor" -->
+  <section class="w-full text-center mb-20 px-4 relative z-10">
+    <a href="https://ilavayou.com.br/visualizar_rosa/41c6717b-6394-4c61-9e13-4d61dc8c9c03" target="_blank" rel="noopener noreferrer" class="link-flor" aria-label="Abrir site A flor do nosso amor">
+      <i class="fas fa-seedling"></i> A flor do nosso amor
+    </a>
+  </section>
+
+  <!-- Cartinhas para Você -->
+  <section class="w-full max-w-5xl mb-20 px-4 relative z-10">
+    <h2 class="text-4xl font-semibold mb-12 text-center text-purple-600 select-none drop-shadow-sm">Cartinhas para Você</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Quando eu ouvi sua voz pela primeira vez" data-text="Eu n sei explicar oq aconteceu cmg naqla hr  
+A sua voz entrou pelos meus ouvidos e foi direto no meu peito  
+era linda, era gostosa, era perfeita  
+Sb aql sensação de qnd vc ouve uma msc nova e sente que ela foi feita pra vc? Foi tipo isso  
+A sua voz virou a minha msc favorita, aquela que eu nunca canso de ouvir  
+Ela me acalma qnd tô ansioso  
+Me anima qnd tô triste  
+Eu amo muito sua voz Manuzinha  
+Eu podia passar o dia td só ouvindo você falar, rir, brincar… até mesmo brigar, se for com aquela sua voz fofa que tenta parecer brava KKKKKKKKKKKK  
+Desde aquele dia eu percebi:  
+n tem som mais bonito no mundo doq o som da sua voz falando meu nome">
+        <h3 class="text-purple-700 font-semibold text-xl mb-3">Quando eu ouvi sua voz pela primeira vez</h3>
+        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
+      </article>
+
+      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Eu te amo muito" data-text="ei, só queria dizer q eu te amooooo muitoooo manuzinhaaa, tipo muiitoooo msm  
+nem sei explicar o pq, só sei q vc é tudo pra mim  
+vc me faz sorrir do nada, me entende qnd eu nem falo nada, e me faz sentir em outro mundo, mesmo q o mundo esteja virado de cbç p baixo  
+é isso, só queria q vc soubesse q eu tô aqui, q eu sou seu, e q eu te amo mais do q oq dá pra escrever suaaaaaaa lindaaaaaaaaah💖">
+        <h3 class="text-purple-700 font-semibold text-xl mb-3">Eu te amo muito</h3>
+        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
+      </article>
+
+      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Coisas que amo em você" data-text="coisas q eu amo em vc? vish, por onde começo kkkkkk  
+amo seu jeitinho, sua voz, sua risada muito soft,  
+o jeito q vc fala &quot;erriesi&quot;, dsclp, parece ser estranho  
+amo q vc me entende, me escuta, me acalma, me faz rir  
+e principalmente... amo o fato de vc ser vc 💗">
+        <h3 class="text-purple-700 font-semibold text-xl mb-3">Coisas que amo em você</h3>
+        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
+      </article>
+
+      <article tabindex="0" role="button" aria-pressed="false" class="envelope p-7 cursor-pointer select-none" data-title="Se eu pudesse te abraçar agora…" data-text="se eu pudesse te abraçar agora...  
+eu juro q n soltava nunca mais,  
+ficava ali, quetinho, sentindo seu cheiro, seu calor, seu coração batendo no meu,  
+falava nada, só ficava ali com vc, pq às vezes um abraço seu vale mais q mil palavras,  
+e se eu pudesse, eu já tava aí 💞">
+        <h3 class="text-purple-700 font-semibold text-xl mb-3">Se eu pudesse te abraçar agora…</h3>
+        <div class="text-purple-600 text-base leading-relaxed font-medium">Clique para ler</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Lista para o Futuro -->
+  <section class="w-full max-w-3xl mb-12 px-4 relative z-10">
+    <h2 class="text-4xl font-semibold mb-8 text-center text-purple-600 select-none drop-shadow-sm">Lista para o Futuro ✨</h2>
+    <ul class="future-list list-none space-y-5">
+      <li>Casar</li>
+      <li>Ter filhos</li>
+      <li>Nomes dos filhos: Mia Manuelly e Brian O’Conner</li>
+      <li>Carro dos sonhos</li>
+      <li>Ter uma casinha na árvore pros nossos filhos</li>
+      <li>Ter uma piscina bem grandona</li>
+      <li>Viajar pelo mundo</li>
+      <li>Ver as estrelas nas Maldivas</li>
+      <li>Visitar Edimburgo no outono</li>
+      <li>Ver a aurora boreal</li>
+      <li>Nadar com porquinhos nas Bahamas</li>
+      <li>Conhecer o Castelo de Bran na Romênia</li>
+      <li>Ver a cor dos lagos em Banff, Canadá</li>
+      <li>Visitar Aspen no inverno</li>
+      <li>Conhecer a praia rosa na Indonésia</li>
+      <li>Visitar os EUA no Halloween</li>
+      <li>Se perder nas ruas de Tóquio</li>
+      <li>Ir na praia à noite</li>
+      <li>Andar de balão de ar quente</li>
+      <li>Ver o festival de lanternas na Tailândia</li>
+      <li>Ir no maior deserto de sal do mundo, na Bolívia</li>
+      <li>Viajar em família pra Disney</li>
+      <li>Conhecer Nova York no Natal</li>
+      <li>Ir para Los Angeles</li>
+    </ul>
+    <p class="future-main-text" aria-label="Principal: se conhecer">PRINCIPAL: SE CONHECER</p>
+  </section>
+
+  <!-- Botão Textinho de 7 meses -->
+  <section class="w-full text-center px-4 relative z-10">
+    <button id="btnTextinho" aria-label="Abrir textinho de 7 meses com minha princesa" type="button">
+      <i class="fas fa-feather-alt"></i> Textinho de 7 meses
+    </button>
+  </section>
+
+  <!-- Modal Textinho -->
+  <div id="modalTextinho" class="modal-bg" role="dialog" aria-modal="true" aria-labelledby="modalTextinhoTitle" aria-describedby="modalTextinhoDesc" tabindex="-1" style="opacity:0; pointer-events:none;">
+    <div class="modal-content" tabindex="0">
+      <h3 id="modalTextinhoTitle" class="text-3xl font-bold mb-6 text-center">7 meses com vc minha fadinha azul 💙</h3>
+      <p id="modalTextinhoDesc" class="whitespace-pre-wrap mb-8" style="white-space: pre-line;">
+caraca... 7 meses... tipo, PARA TUDO
+como assim já se passaram 7 meses desde q eu te conheci?
+7 meses ouvindo sua voz, lendo seus “oii amorrr” com coraçãozinho, e sentindo meu peito bater mais forte cada vez q vc aparece...
+
+pq, olha, eu juro q quando vc chegou na minha vida eu nem sabia o q tava por vir
+eu só pensei “ok, ela é diferente... tem alguma coisa nela”
+e tinha mesmo... tinha tudo, tinha luz, tinha carinho, tinha risada linda, tinha amor.
+tinha vc suaaa lindaaa
+
+e desde então, cada dia com vc virou tipo... um sonho
+vc virou meu primeiro pensamento qnd eu acordo e o último antes de dormir
+vc virou minha calma no meio da bagunça
+virou aquele “vc tá bem?” q salva o dia
+virou meu abracinho virtual nas noites ruins
+virou minha certeza no meio das dúvidas
+
+sério, vc é tudo, tudo o q eu pedi sem sbr, tudo q eu queria sem ter coragem de admitir
+vc é carinhosa, engraçada, doce, brava de vez em qnd kkkkk mas até isso eu amo
+pq é isso, né? eu amo vc, amo mesmo, com tudo,  sem pausa, sem vírgula, sem talvez
+
+e blz, sei q nem sempre as coisas são fáceis
+a distância, os problemas, os dias em q tudo parece pesado demais
+mas mesmo assim, eu olho pra vc e penso: “man, se for pra ser difícil, q seja com ela, pq por ela vale a pena”
+
+vc me faz querer ser melhor
+me faz querer lutar, conquistar, sonhar
+vc me faz sentir amado, importante, único
+vc me faz sentir que eu tenho alguém no mundo q me vê de verdade
+é isso, minha fadinha azul vale tudo
+
+7 meses… e eu ainda arrepio só de imaginar seu rosto sorrindo por minha causa
+ainda paro pra reler as mensagens antigas e sorrir cm idiota
+ainda espero ansioso pelo “cheguei da iskola ppdoo” q muda o tom do meu dia
+
+e eu só queria q vc soubesse: eu tô aqui, sempre, por vc, com vc, pra vc,
+pq se tem uma coisa q eu aprendi nesse tempo é q amar alguém como eu amo vc… é raro demais pra deixar passar
+
+então minha princesa, minha fadinha azul, minha parceira de planos malucos e sonhos grandes:
+obgd por tudo, por ser quem vc é, por n desistir da gente, por me amar mesmo com todos os meus defeitos
+
+e se depender de mim, esses 7 meses são só o comecinho de uma história q vai durar pra sempre
+pq é com vc q eu quero ver o mundo, construir tudo, viver tudo
+é com vc q eu quero o sempre
+
+feliz 7 meses minha linda 💙
+eu te amo num nível q nem dá pra explicar, mais juro q tento todo dia, com cada mensagem, cada palavra, cada “eu te amo”
+vc é o meu lugar favorito
+e eu sou seu, totalmente seu, pra tudo
+
+eu te amooo muitoo minha fadinha azul, minha gostosaaaaa❤❤
+      </p>
+      <button id="modalTextinhoClose" class="modal-close-btn" aria-label="Fechar textinho de 7 meses">Fechar 💖</button>
+      <a href="https://open.spotify.com/playlist/1Mv90HswkRAs8JZbjt4gF7?si=BEkP8RLbRg2yHvzd5fQlhg" target="_blank" rel="noopener noreferrer" id="btnPlaylist" class="inline-flex mx-auto" aria-label="Abrir playlist para minha princesa">
+        <i class="fab fa-spotify"></i> Playlist para minha princesa
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Timeline dates
+    const events = [
+      { id: 'elapsed1', date: '2024-10-26T00:00:00' },
+      { id: 'elapsed2', date: '2024-11-13T00:00:00' },
+      { id: 'elapsed3', date: '2024-11-15T00:00:00' },
+      { id: 'elapsed4', date: '2024-11-24T00:00:00' },
+      { id: 'elapsed5', date: '2024-10-26T00:00:00' }
+    ];
+
+    function updateElapsed() {
+      const now = new Date();
+
+      events.forEach(({ id, date }) => {
+        const start = new Date(date);
+        let diff = Math.floor((now - start) / 1000); // seconds difference
+
+        if (diff < 0) {
+          document.getElementById(id).textContent = 'Evento futuro';
+          return;
+        }
+
+        const months = Math.floor(diff / (30 * 24 * 3600));
+        diff -= months * 30 * 24 * 3600;
+        const weeks = Math.floor(diff / (7 * 24 * 3600));
+        diff -= weeks * 7 * 24 * 3600;
+        const days = Math.floor(diff / (24 * 3600));
+        diff -= days * 24 * 3600;
+        const hours = Math.floor(diff / 3600);
+        diff -= hours * 3600;
+        const minutes = Math.floor(diff / 60);
+        const seconds = diff - minutes * 60;
+
+        const parts = [];
+        if (months) parts.push(`${months} ${months === 1 ? 'mês' : 'meses'}`);
+        if (weeks) parts.push(`${weeks} ${weeks === 1 ? 'semana' : 'semanas'}`);
+        if (days) parts.push(`${days} ${days === 1 ? 'dia' : 'dias'}`);
+        if (hours) parts.push(`${hours} ${hours === 1 ? 'hora' : 'horas'}`);
+        if (minutes) parts.push(`${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}`);
+        parts.push(`${seconds} ${seconds === 1 ? 'segundo' : 'segundos'}`);
+
+        document.getElementById(id).textContent = parts.join(', ') + ' atrás';
+      });
+    }
+    updateElapsed();
+    setInterval(updateElapsed, 1000);
+
+    // Modal logic for cartinhas
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalClose = document.getElementById('modalClose');
+    const envelopes = document.querySelectorAll('.envelope');
+    let lastFocusedEnvelope = null;
+
+    envelopes.forEach((env) => {
+      env.addEventListener('click', () => {
+        lastFocusedEnvelope = env;
+        openModal(env);
+      });
+      env.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          lastFocusedEnvelope = env;
+          openModal(env);
+        }
+      });
+    });
+
+    function openModal(env) {
+      modalTitle.textContent = env.getAttribute('data-title');
+      modalDesc.textContent = env.getAttribute('data-text');
+      modal.classList.add('active');
+      modalClose.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      if (lastFocusedEnvelope) {
+        lastFocusedEnvelope.focus();
+      }
+    }
+
+    // Discord webhook button
+    const btnAmor = document.getElementById('btnAmor');
+    const msgStatus = document.getElementById('msgStatus');
+    const webhookURL = 'https://discord.com/api/webhooks/1373390896497954998/bCmczixsio0AxH__cjgTUDk_cJyUrCjq8gtZ-ZnFNMeaJ9Cm1VRydXYBD2Wsa431VXrT';
+    const messageContent = 'EUUUUU TEEEE AMOOOOO MUITOOOOOO MINHAAAAA GOSTOSAAAAAAAAA❤❤';
+
+    btnAmor.addEventListener('click', async () => {
+      btnAmor.disabled = true;
+      msgStatus.textContent = 'Enviando mensagem...';
+
+      try {
+        const res = await fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: messageContent }),
+        });
+        if (res.ok) {
+          msgStatus.textContent = 'Mensagem enviada com sucesso! ❤️';
+        } else {
+          msgStatus.textContent = 'Erro ao enviar mensagem. Tente novamente.';
+        }
+      } catch (error) {
+        msgStatus.textContent = 'Erro ao enviar mensagem. Tente novamente.';
+      } finally {
+        setTimeout(() => {
+          msgStatus.textContent = '';
+          btnAmor.disabled = false;
+        }, 4000);
+      }
+    });
+
+    // Modal Textinho logic
+    const btnTextinho = document.getElementById('btnTextinho');
+    const modalTextinho = document.getElementById('modalTextinho');
+    const modalTextinhoClose = document.getElementById('modalTextinhoClose');
+    const modalTextinhoContent = modalTextinho.querySelector('.modal-content');
+    let lastFocusedBtnTextinho = null;
+
+    btnTextinho.addEventListener('click', () => {
+      lastFocusedBtnTextinho = btnTextinho;
+      modalTextinho.style.opacity = '1';
+      modalTextinho.style.pointerEvents = 'auto';
+      modalTextinho.classList.add('active');
+      modalTextinhoContent.focus();
+      document.body.style.overflow = 'hidden';
+    });
+
+    modalTextinhoClose.addEventListener('click', closeModalTextinho);
+    modalTextinho.addEventListener('click', (e) => {
+      if (e.target === modalTextinho) closeModalTextinho();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalTextinho.classList.contains('active')) {
+        closeModalTextinho();
+      }
+    });
+
+    function closeModalTextinho() {
+      modalTextinho.style.opacity = '0';
+      modalTextinho.style.pointerEvents = 'none';
+      modalTextinho.classList.remove('active');
+      document.body.style.overflow = '';
+      if (lastFocusedBtnTextinho) {
+        lastFocusedBtnTextinho.focus();
+      }
+    }
+
+    // Floating animation for image
+    const img = document.querySelector('section > img.animate-float');
+    if(img){
+      img.animate([
+        { transform: 'translateY(0px)' },
+        { transform: 'translateY(-15px)' },
+        { transform: 'translateY(0px)' }
+      ], {
+        duration: 6000,
+        iterations: Infinity,
+        easing: 'ease-in-out'
+      });
+    }
+
+    // Floating hearts background generation
+    const heartsBg = document.querySelector('.hearts-bg');
+    const heartCount = 30;
+    for(let i=0; i<heartCount; i++){
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.width = heart.style.height = `${10 + Math.random() * 20}px`;
+      heart.style.animationDuration = `${5 + Math.random() * 7}s`;
+      heart.style.animationDelay = `${Math.random() * 7}s`;
+      heartsBg.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
