@@ -2,573 +2,526 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Para Minha Princesa ❤ - 7 meses que eu conheço essa pessoa maravilhosa</title>
+<title>Para Minha Princesa - 7 Meses de Amor</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link
-  href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap"
-  rel="stylesheet"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-/>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lora&family=Poppins&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <style>
   body {
-    font-family: 'Montserrat', sans-serif;
-    background: #fff0f6;
-    color: #4b2e39;
+    font-family: 'Poppins', sans-serif;
+    background: #fff5f7;
+    color: #5a3e4c;
   }
   h1, h2, h3 {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Dancing Script', cursive;
   }
-  /* Scrollbar for timeline container */
-  .timeline-scroll::-webkit-scrollbar {
-    height: 8px;
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
-  .timeline-scroll::-webkit-scrollbar-thumb {
-    background-color: #d97706;
-    border-radius: 10px;
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  .timeline-scroll::-webkit-scrollbar-track {
-    background: #fce7f3;
+  /* Pop-up fade in/out */
+  .popup-enter {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  .popup-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .popup-leave {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .popup-leave-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 </style>
 </head>
-<body class="min-h-screen flex flex-col items-center px-4 py-8 md:py-12 max-w-5xl mx-auto select-none">
+<body class="min-h-screen flex flex-col items-center px-4 sm:px-8 py-8 max-w-5xl mx-auto">
 
 <header class="mb-12 text-center">
-  <h1 class="text-5xl md:text-6xl text-pink-600 drop-shadow-md">Para Minha Princesa ❤</h1>
-  <p class="mt-2 text-lg md:text-xl text-pink-400 font-semibold tracking-wide">7 meses que eu conheço essa pessoa maravilhosa</p>
+  <h1 class="text-5xl sm:text-6xl text-rose-400 drop-shadow-md select-none">Minha Princesa 💖</h1>
+  <p class="mt-2 text-lg sm:text-xl text-rose-300 font-semibold tracking-wide">7 meses de amor e sonhos juntos</p>
 </header>
 
-<!-- 1. Linha do Tempo -->
-<section class="w-full max-w-4xl bg-pink-50 rounded-3xl shadow-lg p-6 md:p-10 mb-12">
-  <h2 class="text-3xl md:text-4xl text-pink-600 mb-6 text-center font-semibold">Nossa Linha do Tempo</h2>
-  <div class="flex flex-col space-y-6 timeline-scroll overflow-x-auto md:overflow-visible md:space-y-8">
-    <!-- Each event with dynamic time -->
-    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
-      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">Eu te conheci em 26/10/2024</div>
-      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time1">Calculando...</div>
-    </div>
-    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
-      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">Eu te pedi em namoro em 13/11/2024</div>
-      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time2">Calculando...</div>
-    </div>
-    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
-      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">O primeiro “eu te amo” foi em 15/11/2024</div>
-      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time3">Calculando...</div>
-    </div>
-    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
-      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">O primeiro texto foi em 24/11/2024</div>
-      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time4">Calculando...</div>
-    </div>
-    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-pink-100 rounded-2xl p-4 md:p-6 shadow-inner">
-      <div class="flex-shrink-0 text-pink-700 text-xl md:text-2xl font-semibold w-48 md:w-56">Eu te amo desde 26/10/2024</div>
-      <div class="text-pink-800 text-lg md:text-xl font-medium" id="time5">Calculando...</div>
-    </div>
-  </div>
-</section>
+<main class="w-full space-y-16">
 
-<!-- 2. A gente no futuro juntos -->
-<section class="w-full max-w-4xl mb-12 rounded-3xl overflow-hidden shadow-lg border-4 border-pink-300">
-  <h2 class="text-3xl md:text-4xl text-pink-600 font-semibold text-center py-6 bg-pink-100">A gente no futuro juntos</h2>
-  <img
-    src="https://media.discordapp.net/attachments/1373265897417998346/1373270339831992320/eu_e_manu.png?ex=6829cd2b&is=68287bab&hm=babff24566ad359384ad0ed454e09e78759e91851179bc6f2f4d9c222455a942&=&format=webp&quality=lossless&width=892&height=595"
-    alt="Imagem romântica de um casal feliz, representando o futuro juntos, com cores suaves e um cenário aconchegante"
-    class="w-full object-cover max-h-[400px] md:max-h-[500px]"
-    loading="lazy"
-  />
-</section>
+  <!-- 1. Linha do Tempo -->
+  <section id="timeline" class="bg-rose-50 rounded-3xl shadow-lg p-8 sm:p-12">
+    <h2 class="text-4xl text-rose-400 mb-8 text-center drop-shadow-sm">Linha do Tempo</h2>
+    <div class="space-y-6 max-w-3xl mx-auto">
+      <TimeEvent date="2024-10-26" label="Eu te conheci" />
+      <TimeEvent date="2024-11-13" label="Eu te pedi em namoro" />
+      <TimeEvent date="2024-11-15" label="O primeiro “eu te amo” foi" />
+      <TimeEvent date="2024-11-24" label="O primeiro texto foi" />
+      <TimeEvent date="2024-10-26" label="Eu te amo desde" />
+    </div>
+  </section>
 
-<!-- 3. Botão para enviar mensagem no Discord via webhook -->
-<section class="w-full max-w-4xl mb-12 flex justify-center">
-  <button
-    id="discordBtn"
-    class="bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
-    aria-label="Enviar mensagem no discord"
-  >
-    <i class="fab fa-discord fa-lg"></i>
-    <span>Enviar mensagem no discord 💖</span>
-  </button>
-</section>
+  <!-- 2. A gente no futuro juntos -->
+  <section id="future" class="bg-rose-50 rounded-3xl shadow-lg p-8 sm:p-12 flex flex-col items-center">
+    <h2 class="text-4xl text-rose-400 mb-8 drop-shadow-sm">A gente no futuro juntos</h2>
+    <img
+      src="https://media.discordapp.net/attachments/1373265897417998346/1373270339831992320/eu_e_manu.png?ex=6829cd2b&is=68287bab&hm=babff24566ad359384ad0ed454e09e78759e91851179bc6f2f4d9c222455a942&=&format=webp&quality=lossless&width=892&height=595"
+      alt="Imagem romântica de um casal feliz, representando o futuro juntos, com cores suaves e atmosfera de sonho"
+      class="rounded-3xl shadow-xl max-w-full h-auto"
+      loading="lazy"
+    />
+  </section>
 
-<!-- 4. Seção “Cartinhas para Você” -->
-<section class="w-full max-w-4xl mb-12 bg-pink-50 rounded-3xl shadow-lg p-6 md:p-10">
-  <h2 class="text-3xl md:text-4xl text-pink-600 mb-8 text-center font-semibold">Cartinhas para Você</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-    <!-- Cartinha 1 -->
+  <!-- 3. Botão para enviar mensagem no Discord via webhook -->
+  <section id="discord" class="bg-rose-50 rounded-3xl shadow-lg p-8 sm:p-12 flex justify-center">
     <button
-      data-popup="popup1"
-      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
-      aria-haspopup="dialog"
-      aria-controls="popup1"
+      id="sendDiscordBtn"
+      class="bg-pink-400 hover:bg-pink-500 active:bg-pink-600 text-white font-semibold px-8 py-4 rounded-3xl shadow-lg flex items-center gap-3 text-lg transition-colors duration-300 select-none"
+      aria-label="Enviar mensagem no Discord"
+      type="button"
     >
-      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
-      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Quando eu ouvi sua voz pela primeira vez</div>
-      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
+      Enviar mensagem no discord <i class="fas fa-heart text-2xl"></i>
     </button>
-    <!-- Cartinha 2 -->
-    <button
-      data-popup="popup2"
-      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
-      aria-haspopup="dialog"
-      aria-controls="popup2"
-    >
-      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
-      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Eu te amo muito</div>
-      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
-    </button>
-    <!-- Cartinha 3 -->
-    <button
-      data-popup="popup3"
-      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
-      aria-haspopup="dialog"
-      aria-controls="popup3"
-    >
-      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
-      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Lista para o futuro</div>
-      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
-    </button>
-    <!-- Cartinha 4 -->
-    <button
-      data-popup="popup4"
-      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
-      aria-haspopup="dialog"
-      aria-controls="popup4"
-    >
-      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
-      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Coisas que amo em você</div>
-      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
-    </button>
-    <!-- Cartinha 5 -->
-    <button
-      data-popup="popup5"
-      class="relative group bg-pink-200 rounded-3xl p-6 shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 focus:outline-none focus:ring-4 focus:ring-pink-300"
-      aria-haspopup="dialog"
-      aria-controls="popup5"
-    >
-      <div class="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-12 bg-pink-400 rounded-b-3xl shadow-inner"></div>
-      <div class="relative text-pink-700 font-semibold text-lg text-center select-none">Se eu pudesse te abraçar agora…</div>
-      <i class="fas fa-envelope-open-text absolute bottom-4 right-4 text-pink-600 text-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></i>
-    </button>
-  </div>
-</section>
+  </section>
 
-<!-- 5. Lista para o Futuro -->
-<section class="w-full max-w-4xl mb-12 bg-pink-50 rounded-3xl shadow-lg p-6 md:p-10">
-  <h2 class="text-3xl md:text-4xl text-pink-600 mb-8 text-center font-semibold">Lista para o Futuro</h2>
-  <div class="bg-pink-100 rounded-2xl border border-pink-300 p-6 md:p-10 text-pink-700 font-medium text-lg leading-relaxed">
-    <h3 class="text-2xl font-semibold mb-6 text-center text-pink-600">PRINCIPAL: SE CONHECER</h3>
-    <ol class="list-decimal list-inside space-y-4 max-w-3xl mx-auto">
-      <li class="flex items-center space-x-3"><i class="fas fa-ring text-pink-500"></i><span>Casar</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-baby text-pink-500"></i><span>Ter filhos</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-child text-pink-500"></i><span>Nomes dos filhos: Mia Manuelly e Brian O’Conner</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-car-side text-pink-500"></i><span>Carro dos sonhos</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Ter uma casinha na árvore para os nossos filhos</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-swimming-pool text-pink-500"></i><span>Ter uma piscina bem grandona</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-plane text-pink-500"></i><span>Viajar pelo mundo</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-star text-pink-500"></i><span>Ver as estrelas nas Maldivas</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-leaf text-pink-500"></i><span>Visitar Edimburgo no outono</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-icicles text-pink-500"></i><span>Ver a aurora boreal</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-water text-pink-500"></i><span>Nadar com porquinhos nas Bahamas</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-chess-rook text-pink-500"></i><span>Conhecer o castelo de Bran na Romênia</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-tint text-pink-500"></i><span>Ver a cor dos lagos em Banff, Canadá</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-snowflake text-pink-500"></i><span>Visitar Aspen no inverno</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-umbrella-beach text-pink-500"></i><span>Conhecer a Praia Rosa na Indonésia</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-ghost text-pink-500"></i><span>Visitar os EUA no Halloween</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-map-marker-alt text-pink-500"></i><span>Se perder nas ruas de Tóquio</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-moon text-pink-500"></i><span>Ir na praia à noite</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-hot-air-balloon text-pink-500"></i><span>Andar de balão de ar quente</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-fire text-pink-500"></i><span>Ver o festival de lanternas na Tailândia</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-mountain text-pink-500"></i><span>Ir no maior deserto de sal do mundo, na Bolívia</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-child-reaching text-pink-500"></i><span>Viajar em família para a Disney</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Conhecer Nova York no Natal</span></li>
-      <li class="flex items-center space-x-3"><i class="fas fa-film text-pink-500"></i><span>Ir para Los Angeles</span></li>
+  <!-- 4. Seção “Cartinhas para Você” -->
+  <section id="cartinhas" class="bg-rose-50 rounded-3xl shadow-lg p-8 sm:p-12">
+    <h2 class="text-4xl text-rose-400 mb-8 text-center drop-shadow-sm">Cartinhas para Você</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <Carta
+        title="Quando eu ouvi sua voz pela primeira vez"
+        content="Eu n sei explicar oq aconteceu cmg naqla hr  
+A sua voz entrou pelos meus ouvidos e foi direto no meu peito  
+era linda, era gostosa, era perfeita  
+
+Sb aql sensação de qnd vc ouve uma msc nova e sente que ela foi feita pra vc? Foi tipo isso  
+A sua voz virou a minha msc favorita, aquela que eu nunca canso de ouvir  
+
+Ela me acalma qnd tô ansioso  
+Me anima qnd tô triste  
+Eu amo muito sua voz Manuzinha  
+
+Eu podia passar o dia td só ouvindo você falar, rir, brincar… até mesmo brigar, se for com aquela sua voz fofa que tenta parecer brava KKKKKKKKKKKK  
+
+Desde aquele dia eu percebi:  
+n tem som mais bonito no mundo doq o som da sua voz falando meu nome
+Eu te amo muito"
+      />
+      <Carta
+        title="ei, só queria dizer q eu te amooooo muitoooo manuzinhaaa"
+        content="ei, só queria dizer q eu te amooooo muitoooo manuzinhaaa, tipo muiitoooo msm  
+nem sei explicar o pq, só sei q vc é tudo pra mim  
+vc me faz sorrir do nada, me entende qnd eu nem falo nada, e me faz sentir em outro mundo, mesmo q o mundo esteja virado de cbç p baixo  
+é isso, só queria q vc soubesse q eu tô aqui, q eu sou seu, e q eu te amo mais do q oq dá pra escrever suaaaaaaa lindaaaaaaaaah💖"
+      />
+      <Carta
+        title="Coisas que amo em você"
+        content="coisas q eu amo em vc? vish, por onde começo kkkkkk  
+amo seu jeitinho, sua voz, sua risada muito soft,  
+o jeito q vc fala \"erriesi\", dsclp, parece ser estranho  
+amo q vc me entende, me escuta, me acalma, me faz rir  
+e principalmente... amo o fato de vc ser vc 💗"
+      />
+      <Carta
+        title="Se eu pudesse te abraçar agora…"
+        content="se eu pudesse te abraçar agora...  
+eu juro q n soltava nunca mais,  
+ficava ali, quetinho, sentindo seu cheiro, seu calor, seu coração batendo no meu,  
+falava nada, só ficava ali com vc, pq às vezes um abraço seu vale mais q mil palavras,  
+e se eu pudesse, eu já tava aí 💞"
+      />
+    </div>
+  </section>
+
+  <!-- 5. Lista para o Futuro -->
+  <section id="future-list" class="bg-rose-50 rounded-3xl shadow-lg p-8 sm:p-12 max-w-4xl mx-auto">
+    <h2 class="text-4xl text-rose-400 mb-8 text-center drop-shadow-sm">Lista para o Futuro</h2>
+    <ol class="list-decimal list-inside space-y-4 text-lg text-rose-600 font-semibold">
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-heart text-pink-400 text-xl flex-shrink-0"></i> PRINCIPAL: SE CONHECER
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-ring text-pink-400 text-xl flex-shrink-0"></i> Casar
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-baby text-pink-400 text-xl flex-shrink-0"></i> Ter filhos
+      </li>
+      <li class="flex flex-col gap-1 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="flex items-center gap-3">
+          <i class="fas fa-child text-pink-400 text-xl flex-shrink-0"></i>
+          <span>Nomes dos filhos: <strong>Mia Manuelly e Brian O’Conner</strong></span>
+        </div>
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-car text-pink-400 text-xl flex-shrink-0"></i> Carro dos sonhos
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-tree text-pink-400 text-xl flex-shrink-0"></i> Ter uma casinha na árvore para os nossos filhos
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-swimming-pool text-pink-400 text-xl flex-shrink-0"></i> Ter uma piscina bem grandona
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-plane text-pink-400 text-xl flex-shrink-0"></i> Viajar pelo mundo
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-star text-pink-400 text-xl flex-shrink-0"></i> Ver as estrelas nas Maldivas
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-leaf text-pink-400 text-xl flex-shrink-0"></i> Visitar Edimburgo no outono
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-icicles text-pink-400 text-xl flex-shrink-0"></i> Ver a aurora boreal
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-piggy-bank text-pink-400 text-xl flex-shrink-0"></i> Nadar com porquinhos nas Bahamas
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-chess-rook text-pink-400 text-xl flex-shrink-0"></i> Conhecer o castelo de Bran na Romênia
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-water text-pink-400 text-xl flex-shrink-0"></i> Ver a cor dos lagos em Banff, Canadá
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-mountain text-pink-400 text-xl flex-shrink-0"></i> Visitar Aspen no inverno
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-umbrella-beach text-pink-400 text-xl flex-shrink-0"></i> Conhecer a Praia Rosa na Indonésia
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-flag-usa text-pink-400 text-xl flex-shrink-0"></i> Visitar os EUA no Halloween
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-map-marker-alt text-pink-400 text-xl flex-shrink-0"></i> Se perder nas ruas de Tóquio
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-moon text-pink-400 text-xl flex-shrink-0"></i> Ir na praia à noite
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-hot-air-balloon text-pink-400 text-xl flex-shrink-0"></i> Andar de balão de ar quente
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-lightbulb text-pink-400 text-xl flex-shrink-0"></i> Ver o festival de lanternas na Tailândia
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-salt-shaker text-pink-400 text-xl flex-shrink-0"></i> Ir no maior deserto de sal do mundo, na Bolívia
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-child-friends text-pink-400 text-xl flex-shrink-0"></i> Viajar em família para a Disney
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-tree text-pink-400 text-xl flex-shrink-0"></i> Conhecer Nova York no Natal
+      </li>
+      <li class="flex items-center gap-3 bg-rose-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <i class="fas fa-film text-pink-400 text-xl flex-shrink-0"></i> Ir para Los Angeles
+      </li>
     </ol>
-  </div>
-</section>
+  </section>
 
-<!-- 6. Botão para playlist do Spotify -->
-<section class="w-full max-w-4xl mb-8 flex justify-center">
-  <a
-    href="https://open.spotify.com/playlist/1Mv90HswkRAs8JZbjt4gF7?si=5d803320a49b4b43"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
-    aria-label="Abrir Playlist da Minha Princesa no Spotify"
+  <!-- 6. Botões extras -->
+  <section id="extras" class="bg-rose-50 rounded-3xl shadow-lg p-8 sm:p-12 flex flex-col sm:flex-row justify-center gap-6 max-w-4xl mx-auto">
+    <a
+      href="https://open.spotify.com/playlist/1Mv90HswkRAs8JZbjt4gF7?si=5d803320a49b4b43"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-3 bg-pink-300 hover:bg-pink-400 text-rose-900 font-semibold px-6 py-3 rounded-3xl shadow-md transition-colors duration-300 select-none justify-center"
+      aria-label="Playlist da Minha Princesa"
+    >
+      <i class="fab fa-spotify text-2xl"></i> Playlist da Minha Princesa ❤❤
+    </a>
+    <a
+      href="https://ilavayou.com.br/visualizar_rosa/41c6717b-6394-4c61-9e13-4d61dc8c9c03"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-3 bg-pink-300 hover:bg-pink-400 text-rose-900 font-semibold px-6 py-3 rounded-3xl shadow-md transition-colors duration-300 select-none justify-center"
+      aria-label="Flor do nosso amor"
+    >
+      <i class="fas fa-seedling text-2xl"></i> Flor do nosso amor
+    </a>
+    <button
+      id="btnTextinho7Meses"
+      class="flex items-center gap-3 bg-pink-400 hover:bg-pink-500 active:bg-pink-600 text-white font-semibold px-6 py-3 rounded-3xl shadow-lg transition-colors duration-300 select-none justify-center"
+      aria-label="Abrir textinho de 7 meses"
+      type="button"
+    >
+      <i class="fas fa-envelope-open-text text-2xl"></i> Textinho de 7 meses
+    </button>
+  </section>
+
+</main>
+
+<!-- Pop-up container -->
+<div id="popupContainer" class="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+  <div
+    id="popupContent"
+    class="bg-rose-50 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-8 relative text-rose-700"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="popupTitle"
   >
-    <i class="fab fa-spotify fa-lg"></i>
-    <span>Playlist da Minha Princesa ❤❤</span>
-  </a>
-</section>
-
-<!-- 7. Botão “Flor do nosso amor” -->
-<section class="w-full max-w-4xl mb-8 flex justify-center">
-  <a
-    href="https://ilavayou.com.br/visualizar_rosa/41c6717b-6394-4c61-9e13-4d61dc8c9c03"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="bg-pink-400 hover:bg-pink-500 active:bg-pink-600 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
-    aria-label="Abrir Flor do nosso amor"
-  >
-    <i class="fas fa-seedling fa-lg"></i>
-    <span>Flor do nosso amor</span>
-  </a>
-</section>
-
-<!-- 8. Botão “textinho de 7 meses” -->
-<section class="w-full max-w-4xl mb-12 flex justify-center">
-  <button
-    id="btn7Meses"
-    class="bg-pink-600 hover:bg-pink-700 active:bg-pink-800 text-white font-semibold rounded-full px-8 py-4 shadow-lg flex items-center space-x-3 transition-colors duration-300 select-none"
-    aria-label="Abrir textinho de 7 meses"
-  >
-    <i class="fas fa-heart fa-lg"></i>
-    <span>Textinho de 7 meses 💌</span>
-  </button>
-</section>
-
-<!-- POPUPS -->
-
-<!-- Cartinha 1 Popup -->
-<div
-  id="popup1"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup1Title"
-  tabindex="-1"
-  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
->
-  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
-    <h3 id="popup1Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Quando eu ouvi sua voz pela primeira vez</h3>
-    <p>
-      Lembro como se fosse ontem, aquele momento mágico em que ouvi sua voz pela primeira vez. Foi como se o mundo parasse e só existisse você e eu, conectados por algo que nem o tempo pode explicar. Sua voz é a melodia que embala meu coração todos os dias.
-    </p>
+    <h3 id="popupTitle" class="text-3xl font-dancing mb-6 text-rose-400"></h3>
+    <pre id="popupText" class="whitespace-pre-wrap text-lg leading-relaxed font-poppins"></pre>
     <button
-      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
-      data-close="popup1"
+      id="popupCloseBtn"
+      class="mt-8 bg-pink-400 hover:bg-pink-500 active:bg-pink-600 text-white font-semibold px-6 py-3 rounded-3xl shadow-lg transition-colors duration-300 select-none flex items-center gap-2 mx-auto"
+      aria-label="Fechar pop-up"
+      type="button"
     >
-      Fechar 💖
-    </button>
-  </div>
-</div>
-
-<!-- Cartinha 2 Popup -->
-<div
-  id="popup2"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup2Title"
-  tabindex="-1"
-  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
->
-  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
-    <h3 id="popup2Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Eu te amo muito</h3>
-    <p>
-      Eu te amo mais do que palavras podem expressar. Cada dia ao seu lado é um presente que eu agradeço com todo meu coração. Você é minha inspiração, minha alegria e meu porto seguro. Amo você hoje, amanhã e para sempre.
-    </p>
-    <button
-      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
-      data-close="popup2"
-    >
-      Fechar 💖
-    </button>
-  </div>
-</div>
-
-<!-- Cartinha 3 Popup (Lista para o futuro) -->
-<div
-  id="popup3"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup3Title"
-  tabindex="-1"
-  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50 overflow-auto"
->
-  <div class="bg-pink-50 rounded-3xl max-w-4xl w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed max-h-[90vh] overflow-y-auto">
-    <h3 id="popup3Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Lista para o Futuro</h3>
-    <div class="bg-pink-100 rounded-2xl border border-pink-300 p-6 text-pink-700 font-medium text-lg leading-relaxed">
-      <h4 class="text-2xl font-semibold mb-6 text-center text-pink-600">PRINCIPAL: SE CONHECER</h4>
-      <ol class="list-decimal list-inside space-y-4 max-w-3xl mx-auto">
-        <li class="flex items-center space-x-3"><i class="fas fa-ring text-pink-500"></i><span>Casar</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-baby text-pink-500"></i><span>Ter filhos</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-child text-pink-500"></i><span>Nomes dos filhos: Mia Manuelly e Brian O’Conner</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-car-side text-pink-500"></i><span>Carro dos sonhos</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Ter uma casinha na árvore para os nossos filhos</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-swimming-pool text-pink-500"></i><span>Ter uma piscina bem grandona</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-plane text-pink-500"></i><span>Viajar pelo mundo</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-star text-pink-500"></i><span>Ver as estrelas nas Maldivas</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-leaf text-pink-500"></i><span>Visitar Edimburgo no outono</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-icicles text-pink-500"></i><span>Ver a aurora boreal</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-water text-pink-500"></i><span>Nadar com porquinhos nas Bahamas</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-chess-rook text-pink-500"></i><span>Conhecer o castelo de Bran na Romênia</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-tint text-pink-500"></i><span>Ver a cor dos lagos em Banff, Canadá</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-snowflake text-pink-500"></i><span>Visitar Aspen no inverno</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-umbrella-beach text-pink-500"></i><span>Conhecer a Praia Rosa na Indonésia</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-ghost text-pink-500"></i><span>Visitar os EUA no Halloween</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-map-marker-alt text-pink-500"></i><span>Se perder nas ruas de Tóquio</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-moon text-pink-500"></i><span>Ir na praia à noite</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-hot-air-balloon text-pink-500"></i><span>Andar de balão de ar quente</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-fire text-pink-500"></i><span>Ver o festival de lanternas na Tailândia</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-mountain text-pink-500"></i><span>Ir no maior deserto de sal do mundo, na Bolívia</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-child-reaching text-pink-500"></i><span>Viajar em família para a Disney</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-tree text-pink-500"></i><span>Conhecer Nova York no Natal</span></li>
-        <li class="flex items-center space-x-3"><i class="fas fa-film text-pink-500"></i><span>Ir para Los Angeles</span></li>
-      </ol>
-    </div>
-    <button
-      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
-      data-close="popup3"
-    >
-      Fechar 💖
-    </button>
-  </div>
-</div>
-
-<!-- Cartinha 4 Popup -->
-<div
-  id="popup4"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup4Title"
-  tabindex="-1"
-  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
->
-  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
-    <h3 id="popup4Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Coisas que amo em você</h3>
-    <p>
-      Amo seu sorriso que ilumina meus dias, seu jeito carinhoso que me faz sentir especial, sua inteligência que me inspira, e a forma como você me entende sem precisar de palavras. Amo cada detalhe que faz de você única e perfeita para mim.
-    </p>
-    <button
-      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
-      data-close="popup4"
-    >
-      Fechar 💖
-    </button>
-  </div>
-</div>
-
-<!-- Cartinha 5 Popup -->
-<div
-  id="popup5"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup5Title"
-  tabindex="-1"
-  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50"
->
-  <div class="bg-pink-50 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed">
-    <h3 id="popup5Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Se eu pudesse te abraçar agora…</h3>
-    <p>
-      Eu te abraçaria bem forte, como se quisesse proteger você de tudo e de todos. Sentiria seu cheiro, seu calor, e deixaria o tempo parar só para ficar ali, juntinho, sentindo a paz que só seu abraço me traz.
-    </p>
-    <button
-      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
-      data-close="popup5"
-    >
-      Fechar 💖
-    </button>
-  </div>
-</div>
-
-<!-- Textinho de 7 meses Popup -->
-<div
-  id="popup7Meses"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="popup7Title"
-  tabindex="-1"
-  class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300 z-50 overflow-auto"
->
-  <div class="bg-pink-50 rounded-3xl max-w-3xl w-full p-8 relative shadow-2xl text-pink-700 font-medium text-lg leading-relaxed max-h-[90vh] overflow-y-auto">
-    <h3 id="popup7Title" class="text-3xl font-semibold mb-6 text-center text-pink-600">Textinho de 7 meses</h3>
-    <p>
-      Amor da minha vida,<br /><br />
-      Hoje completamos 7 meses juntos, e eu não poderia estar mais feliz. Cada momento ao seu lado é um sonho que se realiza, uma aventura cheia de carinho, risadas e cumplicidade. Você é a luz que ilumina meus dias e a paz que acalma meu coração.<br /><br />
-      Obrigado por ser essa pessoa incrível, por me aceitar com todos os meus defeitos e por me fazer querer ser melhor a cada dia. Que venham muitos meses e anos, sempre juntos, construindo nossa história com amor e respeito.<br /><br />
-      Eu te amo mais do que palavras podem dizer, e estarei sempre aqui para você, minha princesa.<br /><br />
-      Com todo meu amor,<br />
-      Seu eterno namorado.
-    </p>
-    <button
-      class="mt-8 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white font-semibold rounded-full px-6 py-3 shadow-md block mx-auto transition-colors duration-300"
-      data-close="popup7Meses"
-    >
-      Fechar 💖
+      Fechar <i class="fas fa-heart"></i>
     </button>
   </div>
 </div>
 
 <script>
-  // Função para calcular tempo exato entre datas e agora com meses, dias, horas e segundos
-  function calcularTempoDetalhado(dataString) {
-    const dataEvento = new Date(dataString);
-    const agora = new Date();
+  // Helper: format duration between two dates in months, weeks, days, hours, minutes, seconds
+  function formatDuration(fromDate, toDate) {
+    let diff = Math.floor((toDate - fromDate) / 1000); // seconds
+    if (diff < 0) return "0 segundos";
 
-    if (agora < dataEvento) return "Ainda não aconteceu";
+    const months = Math.floor(diff / (30 * 24 * 3600));
+    diff -= months * 30 * 24 * 3600;
+    const weeks = Math.floor(diff / (7 * 24 * 3600));
+    diff -= weeks * 7 * 24 * 3600;
+    const days = Math.floor(diff / (24 * 3600));
+    diff -= days * 24 * 3600;
+    const hours = Math.floor(diff / 3600);
+    diff -= hours * 3600;
+    const minutes = Math.floor(diff / 60);
+    diff -= minutes * 60;
+    const seconds = diff;
 
-    // Calcular meses e dias com cuidado
-    let anosDiff = agora.getFullYear() - dataEvento.getFullYear();
-    let mesesDiff = agora.getMonth() - dataEvento.getMonth();
-    let diasDiff = agora.getDate() - dataEvento.getDate();
-    let horasDiff = agora.getHours() - dataEvento.getHours();
-    let minutosDiff = agora.getMinutes() - dataEvento.getMinutes();
-    let segundosDiff = agora.getSeconds() - dataEvento.getSeconds();
+    const parts = [];
+    if (months) parts.push(months + (months === 1 ? " mês" : " meses"));
+    if (weeks) parts.push(weeks + (weeks === 1 ? " semana" : " semanas"));
+    if (days) parts.push(days + (days === 1 ? " dia" : " dias"));
+    if (hours) parts.push(hours + (hours === 1 ? " hora" : " horas"));
+    if (minutes) parts.push(minutes + (minutes === 1 ? " minuto" : " minutos"));
+    if (seconds) parts.push(seconds + (seconds === 1 ? " segundo" : " segundos"));
 
-    if (segundosDiff < 0) {
-      segundosDiff += 60;
-      minutosDiff--;
-    }
-    if (minutosDiff < 0) {
-      minutosDiff += 60;
-      horasDiff--;
-    }
-    if (horasDiff < 0) {
-      horasDiff += 24;
-      diasDiff--;
-    }
-    if (diasDiff < 0) {
-      // Ajustar dias do mês anterior
-      const mesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0);
-      diasDiff += mesAnterior.getDate();
-      mesesDiff--;
-    }
-    if (mesesDiff < 0) {
-      mesesDiff += 12;
-      anosDiff--;
-    }
+    if (parts.length === 0) return "0 segundos";
 
-    const totalMeses = anosDiff * 12 + mesesDiff;
-
-    // Montar string com meses, dias, horas, minutos e segundos
-    let partes = [];
-    if (totalMeses > 0) partes.push(totalMeses + (totalMeses === 1 ? " mês" : " meses"));
-    if (diasDiff > 0) partes.push(diasDiff + (diasDiff === 1 ? " dia" : " dias"));
-    if (horasDiff > 0) partes.push(horasDiff + (horasDiff === 1 ? " hora" : " horas"));
-    if (minutosDiff > 0) partes.push(minutosDiff + (minutosDiff === 1 ? " minuto" : " minutos"));
-    if (segundosDiff >= 0) partes.push(segundosDiff + (segundosDiff === 1 ? " segundo" : " segundos"));
-
-    if (partes.length === 0) return "Agora mesmo";
-
-    // Mostrar até 4 partes para não ficar muito longo
-    return partes.slice(0, 4).join(", ");
+    return parts.slice(0, 3).join(", ");
   }
 
-  // Atualizar os tempos na linha do tempo
-  function atualizarTempos() {
-    document.getElementById("time1").textContent = calcularTempoDetalhado("2024-10-26T00:00:00");
-    document.getElementById("time2").textContent = calcularTempoDetalhado("2024-11-13T00:00:00");
-    document.getElementById("time3").textContent = calcularTempoDetalhado("2024-11-15T00:00:00");
-    document.getElementById("time4").textContent = calcularTempoDetalhado("2024-11-24T00:00:00");
-    document.getElementById("time5").textContent = calcularTempoDetalhado("2024-10-26T00:00:00");
+  // TimeEvent component
+  function TimeEvent({ date, label }) {
+    const container = document.createElement("div");
+    container.className = "flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-rose-100 rounded-2xl p-4 shadow-md";
+
+    const labelEl = document.createElement("p");
+    labelEl.className = "text-rose-500 font-semibold text-lg sm:text-xl";
+    labelEl.textContent = label;
+
+    const timeEl = document.createElement("p");
+    timeEl.className = "text-rose-700 font-semibold text-lg sm:text-xl mt-2 sm:mt-0";
+
+    function updateTime() {
+      const now = new Date();
+      const eventDate = new Date(date + "T00:00:00");
+      const diffStr = formatDuration(eventDate, now);
+      timeEl.textContent = diffStr;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    container.appendChild(labelEl);
+    container.appendChild(timeEl);
+
+    return container;
   }
 
-  atualizarTempos();
-  // Atualiza a cada segundo para o contador ficar dinâmico
-  setInterval(atualizarTempos, 1000);
+  // Carta component
+  function Carta({ title, content }) {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "relative bg-pink-100 rounded-3xl shadow-lg p-6 cursor-pointer hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center text-center select-none focus:outline-none focus:ring-4 focus:ring-pink-300";
+    card.setAttribute("aria-haspopup", "dialog");
+    card.setAttribute("aria-label", `Abrir carta: ${title}`);
 
-  // Discord webhook send message
-  const discordBtn = document.getElementById("discordBtn");
-  discordBtn.addEventListener("click", async () => {
-    discordBtn.disabled = true;
-    discordBtn.innerHTML = `<i class="fas fa-spinner fa-spin fa-lg"></i><span> Enviando...</span>`;
+    // Envelope style with a small folded corner
+    const envelope = document.createElement("div");
+    envelope.className = "w-full h-full relative";
+
+    // Folded corner
+    const corner = document.createElement("div");
+    corner.className = "absolute top-0 right-0 w-10 h-10 bg-pink-300 rounded-tr-3xl rounded-bl-3xl shadow-md";
+    corner.style.clipPath = "polygon(100% 0, 0 0, 100% 100%)";
+
+    // Letter icon
+    const icon = document.createElement("i");
+    icon.className = "fas fa-envelope-open-text text-pink-400 text-4xl mb-4";
+
+    // Title
+    const titleEl = document.createElement("h3");
+    titleEl.className = "text-2xl font-dancing text-rose-500 mb-2";
+    titleEl.textContent = title;
+
+    envelope.appendChild(corner);
+    card.appendChild(envelope);
+    card.appendChild(icon);
+    card.appendChild(titleEl);
+
+    card.addEventListener("click", () => {
+      openPopup(title, content);
+    });
+
+    return card;
+  }
+
+  // Popup logic
+  const popupContainer = document.getElementById("popupContainer");
+  const popupTitle = document.getElementById("popupTitle");
+  const popupText = document.getElementById("popupText");
+  const popupCloseBtn = document.getElementById("popupCloseBtn");
+
+  function openPopup(title, text) {
+    popupTitle.textContent = title;
+    popupText.textContent = text;
+    popupContainer.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    popupCloseBtn.focus();
+  }
+
+  function closePopup() {
+    popupContainer.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+
+  popupCloseBtn.addEventListener("click", closePopup);
+  popupContainer.addEventListener("click", (e) => {
+    if (e.target === popupContainer) closePopup();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !popupContainer.classList.contains("hidden")) {
+      closePopup();
+    }
+  });
+
+  // Render timeline events
+  const timelineContainer = document.querySelector("#timeline > div");
+  [
+    { date: "2024-10-26", label: "Eu te conheci" },
+    { date: "2024-11-13", label: "Eu te pedi em namoro" },
+    { date: "2024-11-15", label: "O primeiro “eu te amo” foi" },
+    { date: "2024-11-24", label: "O primeiro texto foi" },
+    { date: "2024-10-26", label: "Eu te amo desde" },
+  ].forEach(({ date, label }) => {
+    timelineContainer.appendChild(TimeEvent({ date, label }));
+  });
+
+  // Render cartas
+  const cartasContainer = document.querySelector("#cartinhas > div");
+  [
+    {
+      title: "Quando eu ouvi sua voz pela primeira vez",
+      content: `Eu n sei explicar oq aconteceu cmg naqla hr  
+A sua voz entrou pelos meus ouvidos e foi direto no meu peito  
+era linda, era gostosa, era perfeita  
+
+Sb aql sensação de qnd vc ouve uma msc nova e sente que ela foi feita pra vc? Foi tipo isso  
+A sua voz virou a minha msc favorita, aquela que eu nunca canso de ouvir  
+
+Ela me acalma qnd tô ansioso  
+Me anima qnd tô triste  
+Eu amo muito sua voz Manuzinha  
+
+Eu podia passar o dia td só ouvindo você falar, rir, brincar… até mesmo brigar, se for com aquela sua voz fofa que tenta parecer brava KKKKKKKKKKKK  
+
+Desde aquele dia eu percebi:  
+n tem som mais bonito no mundo doq o som da sua voz falando meu nome
+Eu te amo muito`,
+    },
+    {
+      title: "ei, só queria dizer q eu te amooooo muitoooo manuzinhaaa",
+      content: `ei, só queria dizer q eu te amooooo muitoooo manuzinhaaa, tipo muiitoooo msm  
+nem sei explicar o pq, só sei q vc é tudo pra mim  
+vc me faz sorrir do nada, me entende qnd eu nem falo nada, e me faz sentir em outro mundo, mesmo q o mundo esteja virado de cbç p baixo  
+é isso, só queria q vc soubesse q eu tô aqui, q eu sou seu, e q eu te amo mais do q oq dá pra escrever suaaaaaaa lindaaaaaaaaah💖`,
+    },
+    {
+      title: "Coisas que amo em você",
+      content: `coisas q eu amo em vc? vish, por onde começo kkkkkk  
+amo seu jeitinho, sua voz, sua risada muito soft,  
+o jeito q vc fala "erriesi", dsclp, parece ser estranho  
+amo q vc me entende, me escuta, me acalma, me faz rir  
+e principalmente... amo o fato de vc ser vc 💗`,
+    },
+    {
+      title: "Se eu pudesse te abraçar agora…",
+      content: `se eu pudesse te abraçar agora...  
+eu juro q n soltava nunca mais,  
+ficava ali, quetinho, sentindo seu cheiro, seu calor, seu coração batendo no meu,  
+falava nada, só ficava ali com vc, pq às vezes um abraço seu vale mais q mil palavras,  
+e se eu pudesse, eu já tava aí 💞`,
+    },
+  ].forEach(({ title, content }) => {
+    cartasContainer.appendChild(Carta({ title, content }));
+  });
+
+  // Discord webhook button
+  const sendDiscordBtn = document.getElementById("sendDiscordBtn");
+  sendDiscordBtn.addEventListener("click", async () => {
+    sendDiscordBtn.disabled = true;
+    sendDiscordBtn.textContent = "Enviando... 💖";
     try {
-      const response = await fetch(
+      await fetch(
         "https://discord.com/api/webhooks/1373390896497954998/bCmczixsio0AxH__cjgTUDk_cJyUrCjq8gtZ-ZnFNMeaJ9Cm1VRydXYBD2Wsa431VXrT",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             content: "EUUUUU TEEEE AMOOOOO MUITOOOOOO MINHAAAAA GOSTOSAAAAAAAAA❤❤",
           }),
         }
       );
-      if (response.ok) {
-        discordBtn.innerHTML = `<i class="fas fa-check fa-lg"></i><span> Mensagem enviada! 💖</span>`;
-      } else {
-        throw new Error("Erro ao enviar");
-      }
-    } catch (e) {
-      discordBtn.innerHTML = `<i class="fas fa-exclamation-triangle fa-lg"></i><span> Falha ao enviar</span>`;
+      sendDiscordBtn.textContent = "Mensagem enviada! 💖";
       setTimeout(() => {
-        discordBtn.innerHTML = `<i class="fab fa-discord fa-lg"></i><span>Enviar mensagem no discord 💖</span>`;
-        discordBtn.disabled = false;
-      }, 3000);
-      return;
-    }
-    setTimeout(() => {
-      discordBtn.innerHTML = `<i class="fab fa-discord fa-lg"></i><span>Enviar mensagem no discord 💖</span>`;
-      discordBtn.disabled = false;
-    }, 5000);
-  });
-
-  // Popup open/close logic
-  const buttons = document.querySelectorAll("button[data-popup]");
-  const popups = document.querySelectorAll("div[role='dialog']");
-  const closeButtons = document.querySelectorAll("button[data-close]");
-
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const popupId = btn.getAttribute("data-popup");
-      const popup = document.getElementById(popupId);
-      if (popup) {
-        openPopup(popup);
-      }
-    });
-  });
-
-  closeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const popupId = btn.getAttribute("data-close");
-      const popup = document.getElementById(popupId);
-      if (popup) {
-        closePopup(popup);
-      }
-    });
-  });
-
-  // Open popup function
-  function openPopup(popup) {
-    popup.classList.remove("opacity-0", "pointer-events-none");
-    popup.classList.add("opacity-100");
-    popup.querySelector("button[data-close]").focus();
-    document.body.style.overflow = "hidden";
-  }
-
-  // Close popup function
-  function closePopup(popup) {
-    popup.classList.add("opacity-0", "pointer-events-none");
-    popup.classList.remove("opacity-100");
-    document.body.style.overflow = "";
-  }
-
-  // Close popup on outside click or ESC key
-  popups.forEach((popup) => {
-    popup.addEventListener("click", (e) => {
-      if (e.target === popup) {
-        closePopup(popup);
-      }
-    });
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      popups.forEach((popup) => {
-        if (!popup.classList.contains("opacity-0")) {
-          closePopup(popup);
-        }
-      });
+        sendDiscordBtn.textContent = "Enviar mensagem no discord 💖";
+        sendDiscordBtn.disabled = false;
+      }, 4000);
+    } catch {
+      sendDiscordBtn.textContent = "Erro ao enviar. Tente novamente.";
+      setTimeout(() => {
+        sendDiscordBtn.textContent = "Enviar mensagem no discord 💖";
+        sendDiscordBtn.disabled = false;
+      }, 4000);
     }
   });
 
-  // Button textinho de 7 meses open popup
-  const btn7Meses = document.getElementById("btn7Meses");
-  const popup7Meses = document.getElementById("popup7Meses");
-  btn7Meses.addEventListener("click", () => {
-    openPopup(popup7Meses);
+  // Textinho 7 meses button
+  const btnTextinho7Meses = document.getElementById("btnTextinho7Meses");
+  btnTextinho7Meses.addEventListener("click", () => {
+    openPopup(
+      "Textinho de 7 meses",
+      `caraca... 7 meses... tipo, PARA TUDO como assim já se passaram 7 meses desde q eu te conheci? 7 meses ouvindo sua voz, lendo seus “oii amorrr” com coraçãozinho, e sentindo meu peito bater mais forte cada vez q vc aparece...
+
+pq, olha, eu juro q quando vc chegou na minha vida eu nem sabia o q tava por vir eu só pensei “ok, ela é diferente... tem alguma coisa nela” e tinha mesmo... tinha tudo, tinha luz, tinha carinho, tinha risada linda, tinha amor. tinha vc suaaa lindaaa
+
+e desde então, cada dia com vc virou tipo... um sonho vc virou meu primeiro pensamento qnd eu acordo e o último antes de dormir vc virou minha calma no meio da bagunça virou aquele “vc tá bem?” q salva o dia virou meu abracinho virtual nas noites ruins virou minha certeza no meio das dúvidas
+
+sério, vc é tudo, tudo o q eu pedi sem sbr, tudo q eu queria sem ter coragem de admitir vc é carinhosa, engraçada, doce, brava de vez em qnd kkkkk mas até isso eu amo pq é isso, né? eu amo vc, amo mesmo, com tudo, sem pausa, sem vírgula, sem talvez
+
+e blz, sei q nem sempre as coisas são fáceis a distância, os problemas, os dias em q tudo parece pesado demais mas mesmo assim, eu olho pra vc e penso: “man, se for pra ser difícil, q seja com ela, pq por ela vale a pena”
+
+vc me faz querer ser melhor me faz querer lutar, conquistar, sonhar vc me faz sentir amado, importante, único vc me faz sentir que eu tenho alguém no mundo q me vê de verdade é isso, minha fadinha azul vale tudo
+
+7 meses… e eu ainda arrepio só de imaginar seu rosto sorrindo por minha causa ainda paro pra reler as mensagens antigas e sorrir cm idiota ainda espero ansioso pelo “cheguei da iskola ppdoo” q muda o tom do meu dia
+
+e eu só queria q vc soubesse: eu tô aqui, sempre, por vc, com vc, pra vc, pq se tem uma coisa q eu aprendi nesse tempo é q amar alguém como eu amo vc… é raro demais pra deixar passar
+
+então minha princesa, minha fadinha azul, minha parceira de planos malucos e sonhos grandes: obgd por tudo, por ser quem vc é, por n desistir da gente, por me amar mesmo com todos os meus defeitos
+
+e se depender de mim, esses 7 meses são só o comecinho de uma história q vai durar pra sempre pq é com vc q eu quero ver o mundo, construir tudo, viver tudo é com vc q eu quero o sempre
+
+feliz 7 meses minha linda 💙 eu te amo num nível q nem dá pra explicar, mais juro q tento todo dia, com cada mensagem, cada palavra, cada “eu te amo” vc é o meu lugar favorito e eu sou seu, totalmente seu, pra tudo
+
+eu te amooo muitoo minha fadinha azul, minha gostosaaaaa❤❤`
+    );
   });
 </script>
+
 </body>
 </html>
